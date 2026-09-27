@@ -1,0 +1,51 @@
+<div class="mx-auto flex max-w-[1000px] flex-col gap-8 px-4 lg:flex-row lg:gap-0 lg:px-0">
+        <div class="shrink-0 lg:w-[318px] lg:pt-[30px]" data-reveal="">
+          <h2 class="flex items-end gap-6 font-serif text-[44px] font-normal leading-[1.05] sm:text-[52px]">
+            Наши<br>услуги <span class="line mb-4"></span>
+          </h2>
+          <div class="mt-9 flex gap-3">
+            <button type="button" class="arrow size-[72px]" data-prev="services" aria-label="Назад">
+              <svg width="18" height="32" viewBox="0 0 18 32" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 1 2 16l14 15"></path>
+              </svg>
+            </button>
+            <button type="button" class="arrow size-[72px]" data-next="services" aria-label="Вперёд">
+              <svg width="18" height="32" viewBox="0 0 18 32" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m2 1 14 15L2 31"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!-- Лента выходит за правый край контейнера, как в макете -->
+        <div class="relative min-w-0 flex-1 lg:mr-[calc(500px-50vw)]" data-reveal="">
+          <div id="services" class="flex snap-x snap-mandatory gap-0 overflow-x-auto scroll-smooth pb-4 [scrollbar-width:none]">
+            <!-- карточки размножает app.js, чтобы лента листалась по кругу -->
+            <a href="#form" data-card="" class="group flex w-[277px] shrink-0 snap-start flex-col items-center text-center">
+              <span class="relative block size-[220px] overflow-hidden rounded-full"><img src="/legacy/landing-10/images/srv-1.jpg" alt="" class="size-full object-cover transition duration-500 group-hover:scale-110"></span>
+              <span class="mt-8 font-serif text-[27px] font-normal leading-none">Тюль</span>
+              <span class="mt-2 font-serif text-[21px] font-normal text-mute">от 1500 тг./п.м.</span>
+              <span class="mt-5 text-[12px] uppercase text-gold opacity-0 transition group-hover:opacity-100">Заказать</span>
+            </a>
+            <a href="#form" data-card="" class="group flex w-[277px] shrink-0 snap-start flex-col items-center text-center">
+              <span class="relative block size-[220px] overflow-hidden rounded-full"><img src="/legacy/landing-10/images/srv-2.jpg" alt="" class="size-full object-cover transition duration-500 group-hover:scale-110"></span>
+              <span class="mt-8 font-serif text-[27px] font-normal leading-none">Шторы</span>
+              <span class="mt-2 font-serif text-[21px] font-normal text-mute">от 2000 тг./п.м.</span>
+              <span class="mt-5 text-[12px] uppercase text-gold opacity-0 transition group-hover:opacity-100">Заказать</span>
+            </a>
+            <a href="#form" data-card="" class="group flex w-[277px] shrink-0 snap-start flex-col items-center text-center">
+              <span class="relative block size-[220px] overflow-hidden rounded-full"><img src="/legacy/landing-10/images/srv-3.jpg" alt="" class="size-full object-cover transition duration-500 group-hover:scale-110"></span>
+              <span class="mt-8 font-serif text-[27px] font-normal leading-none">Роллшторы</span>
+              <span class="mt-2 font-serif text-[21px] font-normal text-mute">от 9000 тг./п.м.</span>
+              <span class="mt-5 text-[12px] uppercase text-gold opacity-0 transition group-hover:opacity-100">Заказать</span>
+            </a>
+            <a href="#form" data-card="" class="group flex w-[277px] shrink-0 snap-start flex-col items-center text-center">
+              <span class="relative block size-[220px] overflow-hidden rounded-full"><img src="/legacy/landing-10/images/srv-4.jpg" alt="" class="size-full object-cover transition duration-500 group-hover:scale-110"></span>
+              <span class="mt-8 font-serif text-[27px] font-normal leading-[0.95]">Жалюзи<br>горизонтальные</span>
+              <span class="mt-2 font-serif text-[21px] font-normal text-mute">от 7000 тг./п.м.</span>
+              <span class="mt-5 text-[12px] uppercase text-gold opacity-0 transition group-hover:opacity-100">Заказать</span>
+            </a>
+          </div>
+          <!-- правый край ленты растворяется -->
+          <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[260px] bg-gradient-to-r from-transparent to-white/90 lg:block"></div>
+        </div>
+      </div>

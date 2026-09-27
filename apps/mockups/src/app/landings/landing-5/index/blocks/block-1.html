@@ -1,0 +1,588 @@
+<div
+  class="font-raleway overflow-x-hidden [background:rgb(10,_31,_14)] [color:rgb(245,_236,_215)]"
+  data-fg-d3bl5=":0:/src/app/App.tsx:347:7:11946:39340:e:div:xtetxtetxtxtxtetxtetxtetxtetxtetxtetxtetxtetxte"
+>
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 lg:px-16 [height:72px] [background:transparent] [backdrop-filter:blur(0px)] [border-bottom:1px_solid_transparent] [transition:backdrop-filter_0.4s_cubic-bezier(0,0,0.58,1)]"
+    data-fg-d3bl7=":0:/src/app/App.tsx:350:9:12085:1892:e:motion.nav:xtetxtetxte"
+    data-scrolled="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 lg:px-16 [height:72px] [background:rgba(8,_20,_11,_0.96)] [backdrop-filter:blur(16px)] [border-bottom:1px_solid_rgba(201,_168,_76,_0.15)] [transition:backdrop-filter_0.4s_cubic-bezier(0,0,0.58,1)]"
+    data-top="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 lg:px-16 [height:72px] [background:transparent] [backdrop-filter:blur(0px)] [border-bottom:1px_solid_transparent] [transition:backdrop-filter_0.4s_cubic-bezier(0,0,0.58,1)]"
+  >
+    <div
+      class="flex flex-col leading-none"
+      data-fg-d3bl9=":0:/src/app/App.tsx:365:11:12653:486:e:div:ete"
+    >
+      <span
+        class="font-cinzel font-bold tracking-widest shimmer-gold [font-size:1.3rem]"
+        data-fg-d3bl10=":0:/src/app/App.tsx:366:13:12710:179:e:span:t"
+      >
+        SAN
+      </span>
+      <span
+        class="font-cinzel font-light tracking-[0.5em] [font-size:0.55rem] [color:rgb(245,_236,_215)] [opacity:0.6] [margin-top:2px]"
+        data-fg-d3bl12=":0:/src/app/App.tsx:372:13:12902:220:e:span:t"
+      >
+        CURTAINS
+      </span>
+    </div>
+    <div
+      class="hidden lg:flex items-center gap-10"
+      data-fg-d3bl15=":0:/src/app/App.tsx:381:11:13181:236:e:div:x"
+    >
+      <a
+        href="#collections"
+        class="nav-link"
+        data-fg-d3bl17=":0:/src/app/App.tsx:383:15:13284:100:e:a:x"
+      >
+        Collections
+      </a>
+      <a
+        href="#craftsmanship"
+        class="nav-link"
+        data-fg-d3bl17=":0:/src/app/App.tsx:383:15:13284:100:e:a:x"
+      >
+        Craftsmanship
+      </a>
+      <a
+        href="#gallery"
+        class="nav-link"
+        data-fg-d3bl17=":0:/src/app/App.tsx:383:15:13284:100:e:a:x"
+      >
+        Gallery
+      </a>
+      <a
+        href="#testimonials"
+        class="nav-link"
+        data-fg-d3bl17=":0:/src/app/App.tsx:383:15:13284:100:e:a:x"
+      >
+        Testimonials
+      </a>
+      <a
+        href="#contact"
+        class="nav-link"
+        data-fg-d3bl17=":0:/src/app/App.tsx:383:15:13284:100:e:a:x"
+      >
+        Contact
+      </a>
+    </div>
+    <div
+      class="flex items-center gap-4"
+      data-fg-d3bl20=":0:/src/app/App.tsx:390:11:13463:492:e:div:ete"
+    >
+      <a
+        href="#contact"
+        class="hidden lg:block btn-gold [font-size:0.65rem] [padding:11px_28px]"
+        data-fg-d3bl21=":0:/src/app/App.tsx:391:13:13517:159:e:a:t"
+      >
+        Book Consultation
+      </a>
+      <button
+        class="lg:hidden p-2 [color:rgb(245,_236,_215)]"
+        data-fg-d3bl23=":0:/src/app/App.tsx:394:13:13689:249:e:button:x"
+        type="button"
+        aria-label="Toggle menu"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="toggleMenu()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-menu"
+          data-fg-d3bl26=":0:node_modules/lucide-react:399:47:13897:18:e:Menu::::::D5X5"
+        >
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  <div
+    [class]="
+      'fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 lg:hidden [background:rgba(8,_20,_11,_0.98)] [backdrop-filter:blur(20px)] [transition:opacity_0.3s_ease-out] ' +
+      (menuOpen() ? '[opacity:1] [pointer-events:all]' : '[opacity:0] [pointer-events:none]')
+    "
+    data-fg-d3bl28=":0:/src/app/App.tsx:405:9:14015:846:e:motion.div:xte"
+  >
+    <a
+      href="#collections"
+      class="nav-link [font-size:1rem] [opacity:1]"
+      data-fg-d3bl30=":0:/src/app/App.tsx:413:13:14430:257:e:a:x"
+      (click)="closeMenu()"
+    >
+      Collections
+    </a>
+    <a
+      href="#craftsmanship"
+      class="nav-link [font-size:1rem] [opacity:1]"
+      data-fg-d3bl30=":0:/src/app/App.tsx:413:13:14430:257:e:a:x"
+      (click)="closeMenu()"
+    >
+      Craftsmanship
+    </a>
+    <a
+      href="#gallery"
+      class="nav-link [font-size:1rem] [opacity:1]"
+      data-fg-d3bl30=":0:/src/app/App.tsx:413:13:14430:257:e:a:x"
+      (click)="closeMenu()"
+    >
+      Gallery
+    </a>
+    <a
+      href="#testimonials"
+      class="nav-link [font-size:1rem] [opacity:1]"
+      data-fg-d3bl30=":0:/src/app/App.tsx:413:13:14430:257:e:a:x"
+      (click)="closeMenu()"
+    >
+      Testimonials
+    </a>
+    <a
+      href="#contact"
+      class="nav-link [font-size:1rem] [opacity:1]"
+      data-fg-d3bl30=":0:/src/app/App.tsx:413:13:14430:257:e:a:x"
+      (click)="closeMenu()"
+    >
+      Contact
+    </a>
+    <a
+      href="#contact"
+      class="btn-gold mt-4"
+      data-fg-d3bl32=":0:/src/app/App.tsx:423:11:14712:127:e:a:t"
+    >
+      Book Consultation
+    </a>
+  </div>
+  <section
+    data-fg-d3bl37=":0:/src/app/App.tsx:431:9:15034:8838:e:section:xtetxtetetetxtetxtetxtetxtetxte"
+    class="[height:100vh] [min-height:700px] [position:relative] [overflow:hidden]"
+  >
+    <div
+      data-fg-d3bl39=":0:/src/app/App.tsx:435:11:15212:211:e:div"
+      class="[position:absolute] [inset:0px] [background:radial-gradient(80%_60%_at_50%_40%,_rgb(21,_46,_28)_0%,_rgb(10,_31,_14)_55%,_rgb(6,_14,_8)_100%)]"
+    ></div>
+    <div
+      class="orb-float [position:absolute] [top:18%] [left:12%] [width:420px] [height:420px] [border-radius:50%] [background:radial-gradient(circle,_rgba(155,_27,_48,_0.18)_0%,_transparent_70%)] [--dur:7s] [--delay:0s]"
+      data-fg-d3bl41=":0:/src/app/App.tsx:443:11:15469:372:e:div"
+    ></div>
+    <div
+      class="orb-float [position:absolute] [top:30%] [right:8%] [width:320px] [height:320px] [border-radius:50%] [background:radial-gradient(circle,_rgba(201,_168,_76,_0.12)_0%,_transparent_70%)] [--dur:9s] [--delay:2s]"
+      data-fg-d3bl42=":0:/src/app/App.tsx:452:11:15852:373:e:div"
+    ></div>
+    <div
+      class="orb-float [position:absolute] [bottom:15%] [left:25%] [width:240px] [height:240px] [border-radius:50%] [background:radial-gradient(circle,_rgba(155,_27,_48,_0.1)_0%,_transparent_70%)] [--dur:11s] [--delay:1s]"
+      data-fg-d3bl43=":0:/src/app/App.tsx:461:11:16236:375:e:div"
+    ></div>
+    <div
+      data-fg-d3bl45=":0:/src/app/App.tsx:472:11:16661:313:e:div"
+      class="[position:absolute] [inset:0px] [opacity:0.04] [background-image:linear-gradient(rgb(201,_168,_76)_1px,_transparent_1px),_linear-gradient(90deg,_rgb(201,_168,_76)_1px,_transparent_1px)] [background-size:60px_60px]"
+    ></div>
+    <div
+      class="relative z-10 flex flex-col items-center justify-center text-center [height:100%] [opacity:1] [animation:l5-fade_1.2s_cubic-bezier(0,0,0.58,1)_1.3s_backwards]"
+      data-fg-d3bl47=":0:/src/app/App.tsx:481:11:17017:4619:e:motion.div:xtetxtetetxtetxtetxtetxte"
+      data-i="67"
+    >
+      <div
+        class="flex items-center gap-4 mb-8 [opacity:1] [transform:none] [animation:l5-est_1s_cubic-bezier(0,0,0.58,1)_1.7s_backwards]"
+        data-fg-d3bl49=":0:/src/app/App.tsx:489:13:17365:948:e:motion.div:etetetete"
+        data-i="68"
+      >
+        <div
+          data-fg-d3bl50=":0:/src/app/App.tsx:495:15:17635:103:e:div"
+          class="[width:80px] [height:1px] [background:linear-gradient(to_right,_transparent,_rgb(201,_168,_76))]"
+        ></div>
+        <div
+          data-fg-d3bl51=":0:/src/app/App.tsx:496:15:17753:90:e:div"
+          class="[width:8px] [height:8px] [background:rgb(201,_168,_76)] [transform:rotate(45deg)]"
+        ></div>
+        <span
+          class="font-cinzel [font-size:0.6rem] [letter-spacing:0.35em] [color:rgb(201,_168,_76)] [text-transform:uppercase]"
+          data-fg-d3bl52=":0:/src/app/App.tsx:497:15:17858:207:e:span:t"
+        >
+          Est. 2008 · Purveyors of Fine Drapes
+        </span>
+        <div
+          data-fg-d3bl54=":0:/src/app/App.tsx:500:15:18080:90:e:div"
+          class="[width:8px] [height:8px] [background:rgb(201,_168,_76)] [transform:rotate(45deg)]"
+        ></div>
+        <div
+          data-fg-d3bl55=":0:/src/app/App.tsx:501:15:18185:102:e:div"
+          class="[width:80px] [height:1px] [background:linear-gradient(to_left,_transparent,_rgb(201,_168,_76))]"
+        ></div>
+      </div>
+      <h1
+        class="font-cinzel shimmer-gold [font-size:clamp(3.5rem,_10vw,_9rem)] [font-weight:700] [line-height:1] [letter-spacing:0.12em] [margin-bottom:8px] [opacity:1] [transform:none] [animation:l5-y40_1s_cubic-bezier(0.22,1,0.36,1)_1.8s_backwards]"
+        data-fg-d3bl57=":0:/src/app/App.tsx:505:13:18358:448:e:motion.h1:t"
+        data-i="74"
+      >
+        SAN
+      </h1>
+      <div
+        class="font-cinzel [font-size:clamp(0.9rem,_3vw,_2rem)] [font-weight:300] [letter-spacing:0.65em] [color:rgb(245,_236,_215)] [opacity:0.7] [margin-bottom:24px] [animation:l5-fade_1s_cubic-bezier(0,0,0.58,1)_2s_backwards]"
+        data-fg-d3bl59=":0:/src/app/App.tsx:514:13:18819:422:e:motion.div:t"
+        data-i="75"
+      >
+        CURTAINS
+      </div>
+      <div
+        data-fg-d3bl62=":0:/src/app/App.tsx:525:13:19283:321:e:motion.div"
+        data-i="76"
+        class="[width:200px] [height:1px] [background:linear-gradient(to_right,_transparent,_rgb(201,_168,_76),_transparent)] [margin-bottom:32px] [transform:none] [animation:l5-scalex_0.8s_cubic-bezier(0,0,0.58,1)_2.2s_backwards]"
+      ></div>
+      <p
+        class="font-playfair [font-size:clamp(1.1rem,_2.5vw,_1.75rem)] [font-style:italic] [color:rgb(245,_236,_215)] [opacity:0.85] [max-width:580px] [line-height:1.6] [margin-bottom:48px] [padding:0px_24px] [transform:none] [animation:l5-y20_0.9s_cubic-bezier(0.22,1,0.36,1)_2.3s_backwards]"
+        data-fg-d3bl64=":0:/src/app/App.tsx:533:13:19646:572:e:motion.p:t"
+        data-i="77"
+      >
+        Where every window becomes a masterpiece of light, texture, and timeless elegance.
+      </p>
+      <div
+        class="flex items-center gap-5 flex-wrap justify-center [opacity:1] [transform:none] [animation:l5-y20_0.8s_cubic-bezier(0,0,0.58,1)_2.6s_backwards]"
+        data-fg-d3bl67=":0:/src/app/App.tsx:544:13:20257:460:e:motion.div:ete"
+        data-i="78"
+      >
+        <a
+          href="#collections"
+          class="btn-gold"
+          data-fg-d3bl68=":0:/src/app/App.tsx:550:15:20540:67:e:a:t"
+        >
+          Explore Collections
+        </a>
+        <a
+          href="#contact"
+          class="btn-outline"
+          data-fg-d3bl70=":0:/src/app/App.tsx:551:15:20622:69:e:a:t"
+        >
+          Book Free Consultation
+        </a>
+      </div>
+      <div
+        class="flex items-center gap-10 mt-16 flex-wrap justify-center [opacity:1] [animation:l5-fade_0.8s_cubic-bezier(0,0,0.58,1)_2.9s_backwards]"
+        data-fg-d3bl73=":0:/src/app/App.tsx:555:13:20761:851:e:motion.div:x"
+        data-i="81"
+      >
+        <div class="text-center" data-fg-d3bl75=":0:/src/app/App.tsx:562:17:21191:377:e:div:ete">
+          <div
+            class="font-cinzel shimmer-gold [font-size:1.6rem] [font-weight:700]"
+            data-fg-d3bl76=":0:/src/app/App.tsx:563:19:21251:101:e:div:x"
+          >
+            2,400+
+          </div>
+          <div
+            class="font-raleway [font-size:0.65rem] [letter-spacing:0.2em] [text-transform:uppercase] [color:rgb(245,_236,_215)] [opacity:0.45] [margin-top:2px]"
+            data-fg-d3bl78=":0:/src/app/App.tsx:564:19:21371:174:e:div:x"
+          >
+            Homes Adorned
+          </div>
+        </div>
+        <div class="text-center" data-fg-d3bl75=":0:/src/app/App.tsx:562:17:21191:377:e:div:ete">
+          <div
+            class="font-cinzel shimmer-gold [font-size:1.6rem] [font-weight:700]"
+            data-fg-d3bl76=":0:/src/app/App.tsx:563:19:21251:101:e:div:x"
+          >
+            15+
+          </div>
+          <div
+            class="font-raleway [font-size:0.65rem] [letter-spacing:0.2em] [text-transform:uppercase] [color:rgb(245,_236,_215)] [opacity:0.45] [margin-top:2px]"
+            data-fg-d3bl78=":0:/src/app/App.tsx:564:19:21371:174:e:div:x"
+          >
+            Years of Craft
+          </div>
+        </div>
+        <div class="text-center" data-fg-d3bl75=":0:/src/app/App.tsx:562:17:21191:377:e:div:ete">
+          <div
+            class="font-cinzel shimmer-gold [font-size:1.6rem] [font-weight:700]"
+            data-fg-d3bl76=":0:/src/app/App.tsx:563:19:21251:101:e:div:x"
+          >
+            48
+          </div>
+          <div
+            class="font-raleway [font-size:0.65rem] [letter-spacing:0.2em] [text-transform:uppercase] [color:rgb(245,_236,_215)] [opacity:0.45] [margin-top:2px]"
+            data-fg-d3bl78=":0:/src/app/App.tsx:564:19:21371:174:e:div:x"
+          >
+            Fabric Varieties
+          </div>
+        </div>
+        <div class="text-center" data-fg-d3bl75=":0:/src/app/App.tsx:562:17:21191:377:e:div:ete">
+          <div
+            class="font-cinzel shimmer-gold [font-size:1.6rem] [font-weight:700]"
+            data-fg-d3bl76=":0:/src/app/App.tsx:563:19:21251:101:e:div:x"
+          >
+            4.9★
+          </div>
+          <div
+            class="font-raleway [font-size:0.65rem] [letter-spacing:0.2em] [text-transform:uppercase] [color:rgb(245,_236,_215)] [opacity:0.45] [margin-top:2px]"
+            data-fg-d3bl78=":0:/src/app/App.tsx:564:19:21371:174:e:div:x"
+          >
+            Client Rating
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="curtain-left absolute top-0 left-0 bottom-0 z-20 [width:50%] [transform:translateX(-100%)] [animation:l5-curtain_1.8s_cubic-bezier(0.76,0,0.24,1)_0.7s_backwards]"
+      data-fg-d3bl81=":0:/src/app/App.tsx:571:11:21685:757:e:motion.div:etetxtx"
+      data-i="94"
+    >
+      <div
+        class="curtain-gold-edge-l"
+        data-fg-d3bl82=":0:/src/app/App.tsx:578:13:21964:39:e:div"
+      ></div>
+      <div
+        class="curtain-tassel [right:20px]"
+        data-fg-d3bl83=":0:/src/app/App.tsx:579:13:22016:56:e:div"
+      ></div>
+      <div
+        data-fg-d3bl86=":0:/src/app/App.tsx:582:15:22174:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:10%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl86=":0:/src/app/App.tsx:582:15:22174:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:22%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl86=":0:/src/app/App.tsx:582:15:22174:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:38%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl86=":0:/src/app/App.tsx:582:15:22174:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:58%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl86=":0:/src/app/App.tsx:582:15:22174:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:72%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl86=":0:/src/app/App.tsx:582:15:22174:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:85%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+    </div>
+    <div
+      class="curtain-right absolute top-0 right-0 bottom-0 z-20 [width:50%] [transform:translateX(100%)] [animation:l5-curtain_1.8s_cubic-bezier(0.76,0,0.24,1)_0.7s_backwards]"
+      data-fg-d3bl88=":0:/src/app/App.tsx:593:11:22492:721:e:motion.div:etetx"
+      data-i="103"
+    >
+      <div
+        class="curtain-gold-edge-r"
+        data-fg-d3bl89=":0:/src/app/App.tsx:600:13:22772:39:e:div"
+      ></div>
+      <div
+        class="curtain-tassel [left:20px]"
+        data-fg-d3bl90=":0:/src/app/App.tsx:601:13:22824:55:e:div"
+      ></div>
+      <div
+        data-fg-d3bl92=":0:/src/app/App.tsx:603:15:22945:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:15%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl92=":0:/src/app/App.tsx:603:15:22945:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:28%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl92=":0:/src/app/App.tsx:603:15:22945:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:42%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl92=":0:/src/app/App.tsx:603:15:22945:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:60%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl92=":0:/src/app/App.tsx:603:15:22945:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:75%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+      <div
+        data-fg-d3bl92=":0:/src/app/App.tsx:603:15:22945:228:e:div"
+        class="[position:absolute] [top:0px] [bottom:0px] [left:90%] [width:1px] [background:rgba(201,_168,_76,_0.06)]"
+      ></div>
+    </div>
+    <div
+      class="absolute bottom-8 left-1/2 flex flex-col items-center gap-2 z-10 [opacity:0] [animation:l5-bob_2s_ease-in-out_infinite]"
+      data-fg-d3bl94=":0:/src/app/App.tsx:614:11:23254:599:e:motion.div:ete"
+      data-i="112"
+    >
+      <span
+        class="font-cinzel [font-size:0.55rem] [letter-spacing:0.3em] [color:rgb(201,_168,_76)] [text-transform:uppercase] [opacity:0.7]"
+        data-fg-d3bl95=":0:/src/app/App.tsx:621:13:23587:161:e:span:t"
+      >
+        Discover
+      </span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-chevron-down [color:rgb(201,_168,_76)] [opacity:0.7]"
+        data-fg-d3bl97=":0:node_modules/lucide-react:622:13:23761:68:e:ChevronDown::::::Ddn3"
+      >
+        <path d="m6 9 6 6 6-6"></path>
+      </svg>
+    </div>
+  </section>
+  <div
+    data-fg-d3bl99=":0:/src/app/App.tsx:627:9:23918:1092:e:div:e"
+    class="[background:rgb(155,_27,_48)] [padding:14px_0px] [overflow:hidden] [border-top:1px_solid_rgba(201,_168,_76,_0.2)] [border-bottom:1px_solid_rgba(201,_168,_76,_0.2)]"
+  >
+    <div class="marquee-track" data-fg-d3bl100=":0:/src/app/App.tsx:628:11:24100:895:e:div:x">
+      <div
+        class="flex items-center [flex-shrink:0]"
+        data-fg-d3bl102=":0:/src/app/App.tsx:630:15:24190:772:e:div:x"
+      >
+        <span
+          class="flex items-center font-cinzel [font-size:0.65rem] [letter-spacing:0.25em] [text-transform:uppercase] [color:rgb(245,_236,_215)] [padding:0px_40px] [white-space:nowrap]"
+          data-fg-d3bl104=":0:/src/app/App.tsx:632:19:24503:418:e:span:xte"
+        >
+          Luxury Drapes
+          <span
+            data-fg-d3bl106=":0:/src/app/App.tsx:634:21:24748:147:e:span"
+            class="[margin-left:40px] [width:5px] [height:5px] [background:rgb(201,_168,_76)] [transform:rotate(45deg)] [display:inline-block] [flex-shrink:0]"
+          ></span>
+        </span>
+        <span
+          class="flex items-center font-cinzel [font-size:0.65rem] [letter-spacing:0.25em] [text-transform:uppercase] [color:rgb(245,_236,_215)] [padding:0px_40px] [white-space:nowrap]"
+          data-fg-d3bl104=":0:/src/app/App.tsx:632:19:24503:418:e:span:xte"
+        >
+          Bespoke Tailoring
+          <span
+            data-fg-d3bl106=":0:/src/app/App.tsx:634:21:24748:147:e:span"
+            class="[margin-left:40px] [width:5px] [height:5px] [background:rgb(201,_168,_76)] [transform:rotate(45deg)] [display:inline-block] [flex-shrink:0]"
+          ></span>
+        </span>
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+            ></path>
+          </svg>
+        </span>
+      </div>
+      <h3
+        class="font-playfair [font-size:1.15rem] [font-weight:700] [color:rgb(245,_236,_215)] [margin-bottom:12px]"
+        data-fg-d3bl204=":0:/src/app/App.tsx:775:21:35448:129:e:h3:x"
+      >
+        5-Year Guarantee
+      </h3>
+      <p
+        class="font-raleway [font-size:0.88rem] [color:rgb(245,_236,_215)] [opacity:0.5] [line-height:1.75]"
+        data-fg-d3bl206=":0:/src/app/App.tsx:776:21:35598:122:e:p:x"
+      >
+        Comprehensive warranty covering fabric integrity, stitching, and all hardware.
+      </p>
+    </div>
+  </div>
+  <div
+    class="[opacity:0] [transform:translateY(48px)] [transition:opacity_0.8s_cubic-bezier(0.22,1,0.36,1)_0.2s,transform_0.8s_cubic-bezier(0.22,1,0.36,1)_0.2s]"
+    data-fg-d3bl0=":0:/src/app/App.tsx:132:5:4476:255:e:motion.div:c:1"
+    data-inview="[opacity:1] [transform:none] [transition:opacity_0.8s_cubic-bezier(0.22,1,0.36,1)_0.2s,transform_0.8s_cubic-bezier(0.22,1,0.36,1)_0.2s]"
+    data-initial="[opacity:0] [transform:translateY(48px)] [transition:opacity_0.8s_cubic-bezier(0.22,1,0.36,1)_0.2s,transform_0.8s_cubic-bezier(0.22,1,0.36,1)_0.2s]"
+  >
+    <div
+      class="feature-card [padding:40px_32px] [border-radius:2px]"
+      data-fg-d3bl201=":0:/src/app/App.tsx:771:19:35010:735:e:div:etete"
+    >
+      <div
+        data-fg-d3bl202=":0:/src/app/App.tsx:772:21:35111:316:e:div:e"
+        class="[width:52px] [height:52px] [background:rgba(155,_27,_48,_0.15)] [border:1px_solid_rgba(155,_27,_48,_0.35)] [display:flex] [align-items:center] [justify-content:center] [margin-bottom:24px] [border-radius:2px]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-truck [color:rgb(201,_168,_76)]"
+          data-fg-d3bl203=":0:/src/app/App.tsx:773:23:35351:49:e:f.icon"
+        >
+          <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path>
+          <path d="M15 18H9"></path>
+          <path
+            d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"
+          ></path>
+          <circle cx="17" cy="18" r="2"></circle>
+          <circle cx="7" cy="18" r="2"></circle>
+        </svg>
+      </div>
+      <h3
+        class="font-playfair [font-size:1.15rem] [font-weight:700] [color:rgb(245,_236,_215)] [margin-bottom:12px]"
+        data-fg-d3bl204=":0:/src/app/App.tsx:775:21:35448:129:e:h3:x"
+      >
+        White Glove Delivery
+      </h3>
+      <p
+        class="font-raleway [font-size:0.88rem] [color:rgb(245,_236,_215)] [opacity:0.5] [line-height:1.75]"
+        data-fg-d3bl206=":0:/src/app/App.tsx:776:21:35598:122:e:p:x"
+      >
+        Professional measurement, delivery, and full installation included with every order.
+      </p>
+    </div>
+  </div>
+  <div
+    class="[opacity:0] [transform:translateY(48px)] [transition:opacity_0.8s_cubic-bezier(0.22,1,0.36,1)_0.3s,transform_0.8s_cubic-bezier(0.22,1,0.36,1)_0.3s]"
+    data-fg-d3bl0=":0:/src/app/App.tsx:132:5:4476:255:e:motion.div:c:1"
+    data-inview="[opacity:1] [transform:none] [transition:opacity_0.8s_cubic-bezier(0.22,1,0.36,1)_0.3s,transform_0.8s_cubic-bezier(0.22,1,0.36,1)_0.3s]"
+    data-initial="[opacity:0] [transform:translateY(48px)] [transition:opacity_0.8s_cubic-bezier(0.22,1,0.36,1)_0.3s,transform_0.8s_cubic-bezier(0.22,1,0.36,1)_0.3s]"
+  >
+    <div
+      class="feature-card [padding:40px_32px] [border-radius:2px]"
+      data-fg-d3bl201=":0:/src/app/App.tsx:771:19:35010:735:e:div:etete"
+    >
+      <div
+        data-fg-d3bl202=":0:/src/app/App.tsx:772:21:35111:316:e:div:e"
+        class="[width:52px] [height:52px] [background:rgba(155,_27,_48,_0.15)] [border:1px_solid_rgba(155,_27,_48,_0.35)] [display:flex] [align-items:center] [justify-content:center] [margin-bottom:24px] [border-radius:2px]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-award [color:rgb(201,_168,_76)]"
+          data-fg-d3bl203=":0:/src/app/App.tsx:773:23:35351:49:e:f.icon"
+        >
+          <path
+            d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"
+          ></path>
+          <circle cx="12" cy="8" r="6"></circle>
+        </svg>
+      </div>
+      <h3
+        class="font-playfair [font-size:1.15rem] [font-weight:700] [color:rgb(245,_236,_215)] [margin-bottom:12px]"
+        data-fg-d3bl204=":0:/src/app/App.tsx:775:21:35448:129:e:h3:x"
+      >
+        Award-Winning Design
+      </h3>
+      <p
+        class="font-raleway [font-size:0.88rem] [color:rgb(245,_236,_215)] [opacity:0.5] [line-height:1.75]"
+        data-fg-d3bl206=":0:/src/app/App.tsx:776:21:35598:122:e:p:x"
+      >
+        Recognised by the India Design Council for three consecutive years of excellence.
+      </p>
+    </div>
+  </div>
+</div>
