@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { CounterDirective } from '../../components/reveal.directive';
 import { RevealDirective } from '../../components/reveal.directive';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { ContactLinksDirective } from '../../contact-links.directive';
 import { SITE_SETTINGS } from '../../site-settings';
 import {
@@ -28,6 +29,7 @@ import {
   templateUrl: './page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    NgOptimizedImage,
     LeadFormComponent,
     DesignerLeadFormComponent,
     SiteBeforeAfter,

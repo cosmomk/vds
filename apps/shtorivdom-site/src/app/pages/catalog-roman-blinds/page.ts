@@ -6,6 +6,7 @@ import { PhotoStripDirective } from '../../components/photo-strip.directive';
 import { SITE_FAQ, SITE_PRICES, SitePriceTable } from '@shtorivdom/site-kit';
 import { SiteFaq } from '@shtorivdom/site-kit';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { ContactLinksDirective } from '../../contact-links.directive';
 
 // Сгенерировано tools/mockups/site-to-angular.mjs из mockups/site/catalog/roman-blinds/index.html
@@ -14,6 +15,7 @@ import { ContactLinksDirective } from '../../contact-links.directive';
   templateUrl: './page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    NgOptimizedImage,
     LeadFormComponent,
     RouterLink,
     RevealDirective,

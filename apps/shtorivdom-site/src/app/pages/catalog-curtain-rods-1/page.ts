@@ -4,6 +4,7 @@ import { RevealDirective } from '../../components/reveal.directive';
 import { GALLERY } from '../../components/gallery.service';
 import { PhotoStripDirective } from '../../components/photo-strip.directive';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { ContactLinksDirective } from '../../contact-links.directive';
 import { SITE_PRICES } from '@shtorivdom/site-kit';
 
@@ -13,6 +14,7 @@ import { SITE_PRICES } from '@shtorivdom/site-kit';
   templateUrl: './page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    NgOptimizedImage,
     LeadFormComponent,
     RouterLink,
     RevealDirective,
