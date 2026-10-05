@@ -1,7 +1,18 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, inject, input, linkedSignal, model, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  ElementRef,
+  inject,
+  input,
+  linkedSignal,
+  model,
+  output,
+} from '@angular/core';
 import { SiteButton } from './button.directive';
 import { SiteIcon } from './icon.component';
+import { SITE_CONTACTS } from './data';
 
 const digits = (v: string) => v.replace(/\D/g, '');
 
@@ -13,7 +24,14 @@ export function sitePhoneMask(value: string): string {
   if (d[0] !== '7') d = '7' + d;
   d = d.slice(0, 11);
   const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)];
-  return '+7' + (p[0] ? ` (${p[0]}` : '') + (p[0].length === 3 ? ')' : '') + (p[1] ? ` ${p[1]}` : '') + (p[2] ? `-${p[2]}` : '') + (p[3] ? `-${p[3]}` : '');
+  return (
+    '+7' +
+    (p[0] ? ` (${p[0]}` : '') +
+    (p[0].length === 3 ? ')' : '') +
+    (p[1] ? ` ${p[1]}` : '') +
+    (p[2] ? `-${p[2]}` : '') +
+    (p[3] ? `-${p[3]}` : '')
+  );
 }
 
 export const sitePhoneComplete = (value: string) => digits(value).length === 11;
@@ -49,12 +67,25 @@ export class SitePhoneMask {
   host: { class: 'block' },
   template: `
     <label class="flex items-start gap-3 text-[14px] leading-snug text-slate">
-      <input type="checkbox" name="consent" class="mt-0.5 size-4 shrink-0 accent-[#0d223d]" [checked]="checked()" (change)="toggle($event)"
-        />
-      <span>Я соглашаюсь с правилами по обработке <a class="text-navy underline decoration-gold underline-offset-2 hover:text-gold"
-        [href]="href()">персональных данных</a></span>
+      <input
+        type="checkbox"
+        name="consent"
+        class="mt-0.5 size-4 shrink-0 accent-[#0d223d]"
+        [checked]="checked()"
+        (change)="toggle($event)"
+      />
+      <span
+        >Я соглашаюсь с правилами по обработке
+        <a
+          class="text-navy underline decoration-gold underline-offset-2 hover:text-gold"
+          [href]="href()"
+          >персональных данных</a
+        ></span
+      >
     </label>
-    @if (error()) {<p class="mt-2 text-[12px] text-[#c0392b]">Нужно согласие на обработку персональных данных</p>}
+    @if (error()) {
+      <p class="mt-2 text-[12px] text-[#c0392b]">Нужно согласие на обработку персональных данных</p>
+    }
   `,
 })
 export class SiteConsent {
@@ -92,61 +123,122 @@ export interface SiteLeadData {
     @if (done()) {
       <div class="form-done is-in py-8 text-center" role="status">
         <p class="mb-3 font-serif text-[30px] font-bold text-gold">Спасибо!</p>
-        <p class="text-[14px] leading-relaxed text-slate">Ваша заявка успешно отправлена! Мы скоро с вами свяжемся.</p>
+        <p class="text-[14px] leading-relaxed text-slate">
+          Ваша заявка успешно отправлена! Мы скоро с вами свяжемся.
+        </p>
       </div>
     } @else {
-      <form novalidate [class]="variant() === 'hero' ? 'flex flex-col gap-6' : 'flex flex-col gap-5'" (submit)="submit($event)">
+      <form
+        novalidate
+        [class]="variant() === 'hero' ? 'flex flex-col gap-6' : 'flex flex-col gap-5'"
+        (submit)="submit($event)"
+      >
         @if (variant() === 'hero') {
           <label class="flex items-center gap-3 border-b border-gold pb-3">
             <site-icon name="user" class="text-gold" />
-            <input name="name" type="text" autocomplete="name" placeholder="Введите имя"
-              class="h-10 w-full bg-transparent text-[14px] outline-none placeholder:text-slate/60" [value]="name()"
-                (input)="name.set(val($event))" />
+            <input
+              name="name"
+              type="text"
+              autocomplete="name"
+              placeholder="Введите имя"
+              class="h-10 w-full bg-transparent text-[14px] outline-none placeholder:text-slate/60"
+              [value]="name()"
+              (input)="name.set(val($event))"
+            />
           </label>
           <div>
-            <label class="flex items-center gap-3 border-b border-gold pb-3" [style.border-color]="phoneError() ? '#c0392b' : null">
+            <label
+              class="flex items-center gap-3 border-b border-gold pb-3"
+              [style.border-color]="phoneError() ? '#c0392b' : null"
+            >
               <site-icon name="phone" class="text-gold" />
-              <input #phoneInput name="phone" placeholder="Укажите телефон"
-                class="h-10 w-full bg-transparent text-[14px] outline-none placeholder:text-slate/60" [value]="phone()"
-                  [(sitePhoneMask)]="phone" (input)="phoneError.set(false)" />
+              <input
+                #phoneInput
+                name="phone"
+                placeholder="Укажите телефон"
+                class="h-10 w-full bg-transparent text-[14px] outline-none placeholder:text-slate/60"
+                [value]="phone()"
+                [(sitePhoneMask)]="phone"
+                (input)="phoneError.set(false)"
+              />
             </label>
-            @if (phoneError()) {<p class="mt-2 text-[12px] text-[#c0392b]">Введите номер телефона полностью</p>}
+            @if (phoneError()) {
+              <p class="mt-2 text-[12px] text-[#c0392b]">Введите номер телефона полностью</p>
+            }
           </div>
         } @else {
           @if (variant() === 'partner') {
             <div class="grid gap-5 sm:grid-cols-2">
               <div>
                 <label class="field-label" [attr.for]="id + '-name'">Имя</label>
-                <input siteField name="name" type="text" autocomplete="name" placeholder="Введите имя" [id]="id + '-name'" [value]="name()"
-                  (input)="name.set(val($event))" />
+                <input
+                  siteField
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  placeholder="Введите имя"
+                  [id]="id + '-name'"
+                  [value]="name()"
+                  (input)="name.set(val($event))"
+                />
               </div>
               <ng-container *ngTemplateOutlet="phoneField" />
             </div>
             <div>
               <label class="field-label" [attr.for]="id + '-city'">Город</label>
-              <input siteField name="city" type="text" autocomplete="address-level2" placeholder="Город" [id]="id + '-city'"
-                [value]="city()" (input)="city.set(val($event))" />
+              <input
+                siteField
+                name="city"
+                type="text"
+                autocomplete="address-level2"
+                placeholder="Город"
+                [id]="id + '-city'"
+                [value]="city()"
+                (input)="city.set(val($event))"
+              />
             </div>
           } @else {
             <ng-container *ngTemplateOutlet="phoneField" />
           }
           <div>
             <label class="field-label" [attr.for]="id + '-comment'">Комментарий</label>
-            <textarea siteField name="comment" rows="3" placeholder="Комментарий" [id]="id + '-comment'" [value]="comment()"
-              (input)="comment.set(val($event))"></textarea>
+            <textarea
+              siteField
+              name="comment"
+              rows="3"
+              placeholder="Комментарий"
+              [id]="id + '-comment'"
+              [value]="comment()"
+              (input)="comment.set(val($event))"
+            ></textarea>
           </div>
         }
         <site-consent [href]="consentHref()" [(checked)]="consent" [(error)]="consentError" />
-        @if (variant() === 'hero') {<button type="submit" siteButton class="w-full">Отправить</button>} @else {<button type="submit"
-          siteButton class="mt-2 w-full sm:w-auto sm:self-end">Отправить</button>}
+        @if (variant() === 'hero') {
+          <button type="submit" siteButton class="w-full">Отправить</button>
+        } @else {
+          <button type="submit" siteButton class="mt-2 w-full sm:w-auto sm:self-end">
+            Отправить
+          </button>
+        }
       </form>
     }
     <ng-template #phoneField>
       <div>
         <label class="field-label" [attr.for]="id + '-phone'">Телефон *</label>
-        <input siteField name="phone" placeholder="Укажите телефон" [id]="id + '-phone'" [error]="phoneError()" [value]="phone()"
-          [(sitePhoneMask)]="phone" (input)="phoneError.set(false)" />
-        @if (phoneError()) {<p class="mt-2 text-[12px] text-[#c0392b]">Введите номер телефона полностью</p>}
+        <input
+          siteField
+          name="phone"
+          placeholder="Укажите телефон"
+          [id]="id + '-phone'"
+          [error]="phoneError()"
+          [value]="phone()"
+          [(sitePhoneMask)]="phone"
+          (input)="phoneError.set(false)"
+        />
+        @if (phoneError()) {
+          <p class="mt-2 text-[12px] text-[#c0392b]">Введите номер телефона полностью</p>
+        }
       </div>
     </ng-template>
   `,
@@ -178,7 +270,12 @@ export class SiteLeadForm {
     this.phoneError.set(badPhone);
     this.consentError.set(!this.consent());
     if (badPhone || !this.consent()) return;
-    this.submitted.emit({ name: this.name() || undefined, phone: this.phone(), city: this.city() || undefined, comment: this.comment() || undefined });
+    this.submitted.emit({
+      name: this.name() || undefined,
+      phone: this.phone(),
+      city: this.city() || undefined,
+      comment: this.comment() || undefined,
+    });
     this.done.set(true);
   }
 }
@@ -190,14 +287,23 @@ export class SiteLeadForm {
   imports: [SiteIcon, SiteLeadForm],
   host: { class: 'block bg-sand py-16 sm:py-24' },
   template: `
-    <div class="wrap grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-16">
+    <div
+      class="wrap grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-16"
+    >
       <div>
         <p class="eyebrow">Заявка</p>
-        <h2 class="h2 mb-5">Запишитесь на посещение шоурума и получите <span class="text-gold italic">скидку 10%</span></h2>
+        <h2 class="h2 mb-5">
+          Запишитесь на посещение шоурума и получите
+          <span class="text-gold italic">скидку 10%</span>
+        </h2>
         <div class="mb-10 space-y-3 text-[14px] leading-[1.8] font-light text-slate">
-          <p>Бесплатно осуществим выезд в любой район Москвы и МО в удобный для Вас день и время.</p>
-          <p>На встрече продемонстрируем все образцы материалов, произведём замеры, поможем с выбором модели и рассчитаем стоимость в разных
-            ценовых категориях.</p>
+          <p>
+            Бесплатно осуществим выезд в любой район Москвы и МО в удобный для Вас день и время.
+          </p>
+          <p>
+            На встрече продемонстрируем все образцы материалов, произведём замеры, поможем с выбором
+            модели и рассчитаем стоимость в разных ценовых категориях.
+          </p>
           <p>Изготовим заказ на собственном производстве точно в срок, произведем монтаж.</p>
         </div>
         <ul class="flex flex-col gap-6">
@@ -205,15 +311,22 @@ export class SiteLeadForm {
             <li class="flex gap-4">
               <span class="mt-1 text-gold"><site-icon [name]="c.icon" /></span>
               <div>
-                <p class="mb-1 text-[12px] font-bold tracking-[.12em] text-gold uppercase">{{ c.label }}</p>
-                @if (c.href) {<a class="text-[14px] hover:text-gold" [href]="c.href">{{ c.text }}</a>} @else {<p
-                  class="text-[14px]">{{ c.text }}</p>}
+                <p class="mb-1 text-[12px] font-bold tracking-[.12em] text-gold uppercase">
+                  {{ c.label }}
+                </p>
+                @if (c.href) {
+                  <a class="text-[14px] hover:text-gold" [href]="c.href">{{ c.text }}</a>
+                } @else {
+                  <p class="text-[14px]">{{ c.text }}</p>
+                }
               </div>
             </li>
           }
         </ul>
       </div>
-      <div class="rounded-[4px] border border-navy/5 bg-white px-5 py-8 shadow-[0_8px_40px_rgb(13_34_61/.08)] sm:px-10 sm:py-12">
+      <div
+        class="rounded-[4px] border border-navy/5 bg-white px-5 py-8 shadow-[0_8px_40px_rgb(13_34_61/.08)] sm:px-10 sm:py-12"
+      >
         <site-lead-form [state]="state()" />
       </div>
     </div>
@@ -222,10 +335,19 @@ export class SiteLeadForm {
 export class SiteLeadSection {
   readonly state = input<SiteLeadFormState>('idle');
   protected readonly contacts = [
-    { icon: 'phone' as const, label: 'Телефон', text: '+7 (915) 359-12-00', href: 'tel:+79153591200' },
-    { icon: 'mail' as const, label: 'Эл. почта', text: 'info@shtorivdom.ru', href: 'mailto:info@shtorivdom.ru' },
-    { icon: 'pin' as const, label: 'Адрес', text: 'Троицк, Кварцевая улица, 3, корп. 2', href: '' },
+    {
+      icon: 'phone' as const,
+      label: 'Телефон',
+      text: SITE_CONTACTS.phone,
+      href: `tel:${SITE_CONTACTS.tel}`,
+    },
+    {
+      icon: 'mail' as const,
+      label: 'Эл. почта',
+      text: 'info@shtorivdom.ru',
+      href: 'mailto:info@shtorivdom.ru',
+    },
+    { icon: 'pin' as const, label: 'Адрес', text: SITE_CONTACTS.address, href: '' },
     { icon: 'clock' as const, label: 'График работы', text: 'Без выходных, 10:00–20:00', href: '' },
   ];
 }
-

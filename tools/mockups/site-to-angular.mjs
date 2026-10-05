@@ -25,6 +25,9 @@ import path from 'node:path';
 const SITE = 'apps/mockups/public/legacy/site';
 const APP = 'apps/shtorivdom-site';
 const SITE_URL = 'https://shtorivdom.ru';
+const SITE_SETTINGS = JSON.parse(
+  readFileSync('libs/ui/site-kit/src/lib/site-settings.json', 'utf8'),
+);
 
 // Описания страниц, у которых в прототипе их нет
 const DESCRIPTIONS = {
@@ -48,12 +51,13 @@ const LOCAL_BUSINESS = {
   url: `${SITE_URL}/`,
   logo: `${SITE_URL}/assets/favicon/favicon-96x96.png`,
   image: `${SITE_URL}/assets/img/hero.jpg`,
-  telephone: '+79153591200',
-  email: 'info@shtorivdom.ru',
+  telephone: SITE_SETTINGS.contacts.tel,
+  email: SITE_SETTINGS.contacts.email,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Кварцевая улица, 3, корп. 2',
-    addressLocality: 'Троицк, Москва',
+    streetAddress: SITE_SETTINGS.contacts.streetAddress,
+    addressLocality: SITE_SETTINGS.contacts.addressLocality,
+    addressRegion: SITE_SETTINGS.contacts.addressRegion,
     addressCountry: 'RU',
   },
   areaServed: ['Москва', 'Московская область'],
@@ -343,7 +347,10 @@ cpSync(
 );
 mkdirSync(path.join(APP, 'public/fonts'), { recursive: true });
 for (const f of ['lato-light', 'lato-normal', 'lato-normal-italic', 'lato-semibold', 'lato-bold']) {
-  cpSync(`apps/mockups/public/legacy/shared/fonts/${f}.woff2`, path.join(APP, `public/fonts/${f}.woff2`));
+  cpSync(
+    `apps/mockups/public/legacy/shared/fonts/${f}.woff2`,
+    path.join(APP, `public/fonts/${f}.woff2`),
+  );
 }
 
 // Все картинки из шаблонов должны существовать в public/

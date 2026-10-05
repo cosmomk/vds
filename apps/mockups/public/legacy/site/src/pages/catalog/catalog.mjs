@@ -7,15 +7,18 @@
    Контент — только текущий сайт:
    - разделы, картинки, модели карнизов — apps/shtorivdom-site/src/app/model/catalog/catalog.data.ts;
    - тексты разделов — model/catalog/catalog-detail/<key>/<key>.html (разбираются при сборке);
-   - цены — model/price-list.service.ts (таблица как modules/catalog-price/price-list-brand-table);
-   - вопросы и этапы заказа — те же, что на главной (src/pages/index.html, блоки берутся оттуда).
+   - цены — общий JSON-конфиг сайта libs/ui/site-kit/src/lib/site-prices.json;
+   - вопросы и этапы заказа — те же, что на главной (apps/mockups/public/legacy/site/src/pages/index.html).
    Фото моделей карнизов (catalog-N.webp) в public/ нет — извлечены из истории git (31cf071),
    квадратные фото моделей — public/catalog/curtain-rods/1/ (сопоставлены по виду). */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-const APP = 'mockups/site/src/data/old-site/model/catalog/catalog-detail';
-const SRC = 'mockups/site/src';
+const APP = 'apps/mockups/public/legacy/site/src/data/old-site/model/catalog/catalog-detail';
+const SRC = 'apps/mockups/public/legacy/site/src';
+const SITE_SETTINGS = JSON.parse(
+  readFileSync('libs/ui/site-kit/src/lib/site-settings.json', 'utf8'),
+);
 
 // ---------- данные: catalog.data.ts ----------
 const SECTIONS = [
@@ -91,7 +94,7 @@ const PRICES = Object.fromEntries(
     section.rows.map((row) => [
       row.name,
       row.country,
-      row.width ?? undefined,
+      row.priceLabel ?? row.height ?? undefined,
       row.warranty,
       row.priceMax ? [row.priceMin, row.priceMax] : row.priceMin,
       row.unit ?? section.unit,
@@ -108,14 +111,17 @@ const range = (v, suffix, single, fmt = money) =>
       : `${single}${fmt(v)} ${suffix}`;
 const years = (n) =>
   `${n} ${n % 10 === 1 && n % 100 !== 11 ? 'год' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 'года' : 'лет'}`;
-const minPrice = (key) =>
-  PRICES[key].reduce(
+const minPrice = (key) => {
+  const available = PRICES[key].filter((row) => typeof row[4] === 'number' || Array.isArray(row[4]));
+  if (!available.length) return ['Уточнить наличие', ''];
+  return available.reduce(
     (m, r) => {
       const v = Math.min(...[].concat(r[4]));
       return v < m[0] ? [v, r[5]] : m;
     },
     [Infinity, ''],
   );
+};
 
 const esc = (s) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -283,23 +289,23 @@ const priceTable = (key, title) => {
       <p class="eyebrow">Стоимость</p>
       <h2 class="h2">Цены: <span class="text-gold italic">${title}</span></h2>
       <div class="divider"><i></i></div>
-      <p class="text-[14px] text-slate/70">*Цены ориентировочные. Точная стоимость — после бесплатного замера и выбора ткани.</p>
+      <p class="text-[14px] text-slate/70">*${priceConfig.priceNote}</p>
     </div>
     <div class="reveal hidden overflow-x-auto lg:block" data-price-table>
       <table class="cat-table cat-price">
-        <thead><tr><th>Материал / модель</th><th>Производство</th><th>Ширина, м</th><th>Гарантия</th><th class="text-right">Цена <span class="block text-[12px] font-normal tracking-normal normal-case opacity-70">с пошивом и установкой</span></th></tr></thead>
-        <tbody>${rows.map(([name, country, width, warranty, price, unit]) => `<tr><td class="font-serif text-[18px] font-bold">${name}</td><td>${country}</td><td>${range(width, 'м', 'до ', num)}</td><td>${years(warranty)}</td><td class="text-right text-[14px] font-bold whitespace-nowrap">${range(price, '₽', 'от ')} <span class="font-normal text-slate/70">/ ${unit}</span></td></tr>`).join('')}</tbody>
+        <thead><tr><th>Материал / модель</th><th>Производство</th><th>Высота, см</th><th>Гарантия</th><th class="text-right">Цена <span class="block text-[12px] font-normal tracking-normal normal-case opacity-70">${priceConfig.priceNote}</span></th></tr></thead>
+        <tbody>${rows.map(([name, country, height, warranty, price, unit]) => `<tr><td class="font-serif text-[18px] font-bold">${name}</td><td>${country}</td><td>${height ?? '—'}</td><td>${years(warranty)}</td><td class="text-right text-[14px] font-bold whitespace-nowrap">${typeof price === 'string' ? price : `${range(price, '₽', 'от ')} / ${unit}`}</td></tr>`).join('')}</tbody>
       </table>
     </div>
     <div class="grid gap-4 lg:hidden" data-price-cards>${rows
       .map(
-        ([name, country, width, warranty, price, unit], i) => `
+        ([name, country, height, warranty, price, unit], i) => `
       <div class="reveal border border-navy/10 bg-white px-5 py-5" style="--d:${i * 0.08}s">
         <p class="mb-3 font-serif text-[20px] leading-tight font-bold">${name}</p>
-        <p class="mb-4 text-[20px] font-bold text-navy">${range(price, '₽', 'от ')} <span class="text-[14px] font-normal text-slate/70">/ ${unit}</span></p>
+        <p class="mb-4 text-[20px] font-bold text-navy">${typeof price === 'string' ? price : `${range(price, '₽', 'от ')} / ${unit}`}</p>
         <dl class="grid grid-cols-3 gap-2 border-t border-navy/10 pt-3 text-[12px]">
           <div><dt class="text-[10px] font-bold tracking-[.14em] text-gold uppercase">Страна</dt><dd>${country}</dd></div>
-          <div><dt class="text-[10px] font-bold tracking-[.14em] text-gold uppercase">Ширина</dt><dd>${range(width, 'м', 'до ', num)}</dd></div>
+          <div><dt class="text-[10px] font-bold tracking-[.14em] text-gold uppercase">Высота, см</dt><dd>${height ?? '—'}</dd></div>
           <div><dt class="text-[10px] font-bold tracking-[.14em] text-gold uppercase">Гарантия</dt><dd>${years(warranty)}</dd></div>
         </dl>
       </div>`,
@@ -415,7 +421,7 @@ const listPage = () => `${styles}
             <p class="mb-5 text-[14px] leading-[1.7] text-cream/55">${s.text}</p>
             <div class="cat-gold-line mb-5"></div>
             <div class="flex flex-wrap items-center justify-between gap-3">
-              <span class="text-[14px] tracking-[.04em] text-gold">от ${money(min)} ₽ / ${unit}</span>
+              <span class="text-[14px] tracking-[.04em] text-gold">${typeof min === 'number' ? `от ${money(min)} ₽ / ${unit}` : min}</span>
               <span class="inline-flex items-center gap-1.5 text-[12px] tracking-[.2em] text-cream/60 uppercase transition-colors group-hover:text-gold">Подробнее ${arrow}</span>
             </div>
           </div>
@@ -437,6 +443,9 @@ const listPage = () => `${styles}
 const sectionPage = (s) => {
   const detail = parseDetail(s.key);
   const [min, unit] = minPrice(s.key);
+  const priceSummary = typeof min === 'number'
+    ? `<span class="font-serif text-[30px] text-gold">от ${money(min)} ₽</span><span class="text-cream/60">/ ${unit}</span>`
+    : `<span class="font-serif text-[24px] text-gold">${min}</span>`;
   return `${styles}
 <!-- @header -->
 <main>
@@ -447,7 +456,7 @@ const sectionPage = (s) => {
       <div>${eyebrow('Каталог', false, true)}</div>
       <h1 class="rise mb-5 text-[clamp(36px,6vw,60px)] leading-[1.1]" style="--d:.1s">${s.title}</h1>
       <p class="rise mb-8 max-w-[520px] text-[18px] leading-relaxed text-cream/75" style="--d:.2s">${s.text}</p>
-      <div class="rise mb-9 flex items-baseline gap-3" style="--d:.25s"><span class="text-[12px] tracking-[.2em] text-cream/50 uppercase">Цена</span><span class="font-serif text-[30px] text-gold">от ${money(min)} ₽</span><span class="text-cream/60">/ ${unit}</span></div>
+      <div class="rise mb-9 flex items-baseline gap-3" style="--d:.25s"><span class="text-[12px] tracking-[.2em] text-cream/50 uppercase">Цена</span>${priceSummary}</div>
       <div class="rise flex flex-wrap gap-4" style="--d:.3s">
         <a href="#lead" class="btn-gold group max-sm:w-full">Пригласить дизайнера ${arrow}</a>
         <a href="#prices" class="btn-line max-sm:w-full">Смотреть цены</a>
@@ -474,7 +483,7 @@ const sectionPage = (s) => {
         <p class="mb-3 text-[12px] tracking-[.25em] text-gold uppercase">Бесплатно</p>
         <p class="mb-6 font-serif text-[22px] leading-snug">Закажите выезд дизайнера, и он поможет вам определиться в этом прекрасном многообразии.</p>
         <a href="#lead" class="btn-gold !flex w-full !px-4 whitespace-nowrap">Пригласить дизайнера</a>
-        <a href="tel:+79153591200" class="mt-5 block text-center font-serif text-[20px] font-bold transition-colors hover:text-gold">+7 (915) 359-12-00</a>
+        <a href="tel:${SITE_SETTINGS.contacts.tel}" class="mt-5 block text-center font-serif text-[20px] font-bold transition-colors hover:text-gold">${SITE_SETTINGS.contacts.phone}</a>
       </div>
       <nav class="reveal mt-6 hidden border border-navy/10 bg-white px-6 py-5 lg:block" aria-label="Другие разделы">
         <p class="mb-3 text-[12px] font-bold tracking-[.2em] text-gold uppercase">Другие разделы</p>
@@ -533,10 +542,6 @@ const modelPage = (m) => {
       <div>${eyebrow('Карнизы для штор', false)}</div>
       <h1 class="rise mb-4 text-[clamp(32px,4.5vw,48px)] leading-[1.12]" style="--d:.1s">${m.title}</h1>
       <p class="rise mb-8 text-[14px] leading-relaxed font-light text-slate" style="--d:.15s">Декоративные и профильные.</p>
-      <div class="rise mb-8 border border-navy/10 bg-white px-6 py-6" style="--d:.2s">
-        <p class="mb-4 text-[12px] font-bold tracking-[.2em] text-gold uppercase">Характеристики</p>
-        <p class="border border-dashed border-gold px-4 py-3 text-[14px] text-slate">Заглушка: на текущем сайте у модели есть только название и фото — характеристики (материал, диаметр, длина, кронштейны) ждут данных.</p>
-      </div>
       <div class="rise mb-8 border border-navy/10 bg-white px-6 py-6" style="--d:.25s">
         <p class="mb-1 text-[12px] font-bold tracking-[.2em] text-gold uppercase">Цена</p>
         <p class="mb-4 text-[12px] text-slate/70">Цены раздела «Карнизы для штор» с установкой; цены отдельной модели на текущем сайте нет.</p>

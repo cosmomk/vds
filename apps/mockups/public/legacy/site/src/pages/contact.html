@@ -51,7 +51,7 @@
                   target="_blank"
                   rel="noopener"
                   class="text-[14px] underline decoration-gold/50 decoration-dashed underline-offset-4 hover:text-gold"
-                  >Троицк, Кварцевая улица, 3, корп. 2</a
+                  >{{contacts.address}}</a
                 >
               </div>
             </li>
@@ -95,8 +95,8 @@
                 <p class="mb-1 text-[12px] font-bold tracking-[.12em] text-gold uppercase">
                   Телефон
                 </p>
-                <a href="tel:+79153591200" class="font-serif text-[24px] font-bold hover:text-gold"
-                  >+7 (915) 359-12-00</a
+                <a href="{{contacts.tel}}" class="font-serif text-[24px] font-bold hover:text-gold"
+                  >{{contacts.phone}}</a
                 >
               </div>
             </li>
@@ -142,7 +142,7 @@
                 </p>
                 <div class="flex gap-2.5">
                   <a
-                    href="https://t.me/alex_k1reev"
+                    href="{{contact.telegram}}"
                     target="_blank"
                     rel="noopener"
                     class="grid size-11 place-items-center transition-opacity hover:opacity-75"
@@ -215,7 +215,7 @@
           >
             <div>
               <p class="font-serif text-[18px] font-bold">Shtorivdom</p>
-              <p class="text-[14px] text-slate">Троицк, Кварцевая улица, 3, корп. 2</p>
+              <p class="text-[14px] text-slate" data-contact-link="address-text">{{contacts.address}}</p>
             </div>
             <span class="text-[12px] font-bold tracking-[.1em] text-gold uppercase"
               >Открыть карту →</span

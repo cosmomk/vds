@@ -30,12 +30,15 @@ export class ContactLinksDirective {
         value = { href: this.contacts.max, text: null };
         break;
       case 'map':
-        value = { href: this.contacts.addressLink, text: null };
+        value = { href: this.contacts.addressLink, text: this.contacts.address };
+        break;
+      case 'address-text':
+        this.element.textContent = this.contacts.address;
         break;
     }
 
     if (!value) return;
-    this.element.setAttribute('href', value.href);
+    if (value.href) this.element.setAttribute('href', value.href);
     if (value.text) this.element.textContent = value.text;
   }
 }

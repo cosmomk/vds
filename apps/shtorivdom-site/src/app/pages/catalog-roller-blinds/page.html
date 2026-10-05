@@ -622,7 +622,7 @@
           *Цены ориентировочные. Точная стоимость — после бесплатного замера и выбора ткани.
         </p>
       </div>
-      <site-price-table class="reveal" [section]="priceSection" />
+      <site-price-table class="reveal" [section]="priceSection" [showSectionLink]="false" />
       <div
         class="reveal mt-10 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-center"
       >
@@ -812,13 +812,11 @@
           <div>
             <p class="mb-1 text-[12px] font-bold tracking-[.12em] text-gold uppercase">Адрес</p>
             <a
-              href="https://yandex.ru/maps/-/CTxLMJIy"
+              data-contact-link="map"
               target="_blank"
               rel="noopener"
               class="text-[14px] underline decoration-gold/50 decoration-dashed underline-offset-4 hover:text-gold"
-            >
-              Троицк, Кварцевая улица, 3, корп. 2
-            </a>
+            ></a>
           </div>
         </li>
         <li class="flex gap-4">

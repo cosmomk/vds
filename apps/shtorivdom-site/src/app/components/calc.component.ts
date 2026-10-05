@@ -13,7 +13,7 @@ type CalcItem = {
   key: string;
   title: string;
   unit: string;
-  min: number;
+  min: number | null;
   image: string;
 };
 
@@ -62,6 +62,13 @@ export class CalcComponent {
   protected readonly calculation = computed(() => {
     if (this.invalidSize()) return { rows: [], total: 0, summary: '' };
     const item = this.selected();
+    if (item.min === null) {
+      return {
+        rows: [['Стоимость', 'Уточнить наличие']],
+        total: 0,
+        summary: `${item.title}: уточнить наличие и стоимость у дизайнера`,
+      };
+    }
     const widthMeters = this.width() / 100;
     const heightMeters = this.height() / 100;
     const rows: [string, string][] = [];
@@ -76,6 +83,9 @@ export class CalcComponent {
         ['Высота полотна с подгибами', `${cut.toString().replace('.', ',')} м`],
       );
       if (cut > 3) rows.push(['Внимание', 'выше 3 м — нужна ткань большой высоты или сшивка']);
+    } else if (item.unit === 'шт.') {
+      total = item.min;
+      rows.push(['Количество', '1 шт.']);
     } else {
       const area = Math.ceil(widthMeters * heightMeters * 10) / 10;
       total = area * item.min;

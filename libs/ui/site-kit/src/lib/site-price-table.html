@@ -10,12 +10,12 @@
         >
           <th scope="col">Материал / модель</th>
           <th scope="col">Производство</th>
-          <th scope="col">Ширина, м</th>
+          <th scope="col">Высота, см</th>
           <th scope="col">Гарантия</th>
           <th scope="col" class="text-right">
             Цена
             <span class="block text-[12px] font-normal tracking-normal normal-case text-cream/60">
-              с пошивом и установкой
+              {{ section().priceNote }}
             </span>
           </th>
         </tr>
@@ -27,7 +27,7 @@
           >
             <th scope="row" class="px-6 py-4 font-bold">{{ r.name }}</th>
             <td>{{ r.country }}</td>
-            <td>{{ r.width }}</td>
+            <td>{{ r.height }}</td>
             <td>{{ r.warranty }}</td>
             <td class="text-right font-serif text-[18px] font-bold whitespace-nowrap">
               {{ r.price }}
@@ -54,8 +54,8 @@
             <dd>{{ r.country }}</dd>
           </div>
           <div>
-            <dt>Ширина, м</dt>
-            <dd>{{ r.width }}</dd>
+            <dt>Высота, см</dt>
+            <dd>{{ r.height }}</dd>
           </div>
           <div>
             <dt>Гарантия</dt>
@@ -66,6 +66,8 @@
     }
   </ul>
 }
-<a siteTextLink="section" class="mt-6" [href]="root() + 'catalog/' + section().key + '/'">
-  Перейти в раздел «{{ section().title }}»
-</a>
+@if (showSectionLink()) {
+  <a siteTextLink="section" class="mt-6" [href]="root() + 'catalog/' + section().key + '/'">
+    Перейти в раздел «{{ section().title }}»
+  </a>
+}

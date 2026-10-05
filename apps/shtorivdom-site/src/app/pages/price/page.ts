@@ -4,7 +4,13 @@ import { RevealDirective } from '../../components/reveal.directive';
 import { PRICE_TABS } from '../../components/price-tabs.directive';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ContactLinksDirective } from '../../contact-links.directive';
-import { SITE_PRICES, SitePriceTabs } from '@shtorivdom/site-kit';
+import {
+  SITE_ORDER_AVAILABILITY_NOTE,
+  SITE_PRICES,
+  SITE_TIERS,
+  SitePriceTabs,
+  SiteIcon,
+} from '@shtorivdom/site-kit';
 
 // Сгенерировано tools/mockups/site-to-angular.mjs из mockups/site/price/index.html
 @Component({
@@ -18,8 +24,11 @@ import { SITE_PRICES, SitePriceTabs } from '@shtorivdom/site-kit';
     PRICE_TABS,
     ContactLinksDirective,
     SitePriceTabs,
+    SiteIcon,
   ],
 })
 export class PricePage {
+  protected readonly availabilityNote = SITE_ORDER_AVAILABILITY_NOTE;
   protected readonly prices = SITE_PRICES;
+  protected readonly tiers = SITE_TIERS;
 }

@@ -1,0 +1,25 @@
+{
+  "contacts": {
+    "phone": "+7 (963) 979-88-00",
+    "tel": "+79639798800",
+    "email": "info@shtorivdom.ru",
+    "address": "Москва, Троицк, Кварцевая улица, 3, корп. 2",
+    "streetAddress": "Кварцевая улица, 3, корп. 2",
+    "addressLocality": "Троицк",
+    "addressRegion": "Москва",
+    "addressLink": "https://yandex.ru/maps/-/CTxLMJIy",
+    "hours": "10:00–20:00 / Без выходных",
+    "telegram": "https://t.me/Alexborex",
+    "max": "https://max.ru/u/f9LHodD0cOKwgBlMG-mVRO0UljxgNw5HevLHSWPpLFqKcoYjRFhZADs6U34"
+  },
+  "legal": {
+    "name": "ИП Борисова Амина Мансуровна",
+    "operatorInstrumental": "ИП Борисовой Аминой Мансуровной",
+    "operatorDative": "ИП Борисовой Амине Мансуровне",
+    "inn": "504601378310",
+    "ogrnip": "323774600309661"
+  },
+  "notices": {
+    "showroomWeekend": "Посещение шоурума в выходные — только по предварительной записи минимум за 2 часа: мы можем быть на объекте."
+  }
+}

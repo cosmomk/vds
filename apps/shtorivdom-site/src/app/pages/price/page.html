@@ -43,41 +43,45 @@
       <div class="grid items-start gap-6 lg:grid-cols-3">
         <div class="reveal">
           <div class="tier border border-navy/10 bg-white px-6 py-9 sm:px-8">
-            <p class="mb-3 text-[12px] font-bold tracking-[.2em] text-gold uppercase">Стандарт</p>
+            <p class="mb-3 text-[12px] font-bold tracking-[.2em] text-gold uppercase">
+              {{ tiers[0].name }}
+            </p>
             <p class="mb-5 font-serif text-[40px] leading-none font-bold sm:text-[46px]">
               <span class="align-middle text-[18px] font-normal">от</span>
-              39 000
+              {{ tiers[0].price }}
               <span class="align-middle text-[18px] font-normal opacity-60">руб</span>
             </p>
             <p class="mb-5 text-[14px] leading-relaxed text-slate">
-              Шторы прямого кроя из ткани класса стандарт на стандартной шторной ленте без подкладки
+              {{ tiers[0].text }}
             </p>
             <div class="mb-5 h-px bg-navy/10"></div>
             <ul class="mb-5 text-[14px] [&>li]:flex [&>li]:gap-2.5 [&>li]:py-1.5">
-              <li>
-                <span class="font-bold text-gold">✓</span>
-                Тюль с пошивом
-              </li>
-              <li>
-                <span class="font-bold text-gold">✓</span>
-                Портьеры с пошивом
-              </li>
-              <li>
-                <span class="font-bold text-gold">✓</span>
-                Алюминиевый потолочный карниз двухрядный
-              </li>
-              <li>
-                <span class="font-bold text-gold">✓</span>
-                Авторский надзор проекта
-              </li>
+              @for (feature of tiers[0].features; track feature) {
+                <li>
+                  <span class="font-bold text-gold">✓</span>
+                  {{ feature }}
+                </li>
+              }
             </ul>
             <p class="mb-2 text-[12px] font-bold tracking-[.15em] text-gold uppercase">В подарок</p>
-            <ul class="mb-6 text-[14px] text-slate [&>li]:py-1">
-              <li>Выезд дизайнера и замерщика с образцами тканей</li>
-              <li>Эскиз 1 вариант</li>
-              <li>Наволочка под интерьер</li>
+            <ul
+              class="mb-6 text-[14px] text-slate [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:py-1"
+            >
+              @for (gift of tiers[0].gifts; track gift.text) {
+                <li>
+                  <site-icon
+                    [name]="gift.icon"
+                    [size]="16"
+                    [strokeWidth]="1.5"
+                    class="mt-0.5 text-gold"
+                  />
+                  <span>{{ gift.text }}</span>
+                </li>
+              }
             </ul>
-            <p class="mb-6 text-[12px] text-slate/70">*Срок изготовления 14 дней</p>
+            <p class="mb-6 text-[12px] text-slate/70">
+              *Срок изготовления {{ tiers[0].term }} ({{ availabilityNote }})
+            </p>
             <a fragment="lead" class="btn-gold !flex w-full" [routerLink]="[]">Оставить заявку</a>
           </div>
         </div>
@@ -85,83 +89,87 @@
           <div
             class="tier border-2 border-gold bg-navy px-6 py-10 text-cream shadow-[0_20px_60px_rgb(201_168_76/.2)] sm:px-9 sm:py-11"
           >
-            <p class="mb-3 text-[12px] font-bold tracking-[.2em] text-gold uppercase">Премиум</p>
+            <p class="mb-3 text-[12px] font-bold tracking-[.2em] text-gold uppercase">
+              {{ tiers[1].name }}
+            </p>
             <p class="mb-5 font-serif text-[40px] leading-none font-bold sm:text-[46px]">
               <span class="align-middle text-[18px] font-normal">от</span>
-              58 000
+              {{ tiers[1].price }}
               <span class="align-middle text-[18px] font-normal opacity-60">руб</span>
             </p>
             <p class="mb-5 text-[14px] leading-relaxed text-cream/80">
-              Шторы прямого кроя из ткани класса премиум с декором, кантом, на фигурной шторной
-              ленте
+              {{ tiers[1].text }}
             </p>
             <div class="mb-5 h-px bg-gold/30"></div>
             <ul class="mb-5 text-[14px] [&>li]:flex [&>li]:gap-2.5 [&>li]:py-1.5">
-              <li>
-                <span class="font-bold text-gold">✓</span>
-                Тюль с пошивом
-              </li>
-              <li>
-                <span class="font-bold text-gold">✓</span>
-                Портьеры с пошивом
-              </li>
-              <li>
-                <span class="font-bold text-gold">✓</span>
-                Алюминиевый потолочный карниз двухрядный улучшенного скольжения
-              </li>
-              <li>
-                <span class="font-bold text-gold">✓</span>
-                Подхват — декоративная кисть
-              </li>
+              @for (feature of tiers[1].features; track feature) {
+                <li>
+                  <span class="font-bold text-gold">✓</span>
+                  {{ feature }}
+                </li>
+              }
             </ul>
             <p class="mb-2 text-[12px] font-bold tracking-[.15em] text-gold uppercase">В подарок</p>
-            <ul class="mb-6 text-[14px] text-cream/80 [&>li]:py-1">
-              <li>Выезд дизайнера и замерщика с образцами тканей</li>
-              <li>Эскиз 1 вариант</li>
-              <li>Наволочка под интерьер</li>
+            <ul
+              class="mb-6 text-[14px] text-cream/80 [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:py-1"
+            >
+              @for (gift of tiers[1].gifts; track gift.text) {
+                <li>
+                  <site-icon
+                    [name]="gift.icon"
+                    [size]="16"
+                    [strokeWidth]="1.5"
+                    class="mt-0.5 text-gold"
+                  />
+                  <span>{{ gift.text }}</span>
+                </li>
+              }
             </ul>
-            <p class="mb-6 text-[12px] text-cream/60">*Срок изготовления 10 дней</p>
+            <p class="mb-6 text-[12px] text-cream/60">
+              *Срок изготовления {{ tiers[1].term }} ({{ availabilityNote }})
+            </p>
             <a fragment="lead" class="btn-gold !flex w-full" [routerLink]="[]">Оставить заявку</a>
           </div>
         </div>
         <div class="reveal" style="--d: 0.24s">
           <div class="tier border border-navy/10 bg-gold-soft px-6 py-9 sm:px-8">
-            <p class="mb-3 text-[12px] font-bold tracking-[.2em] uppercase">Люкс</p>
+            <p class="mb-3 text-[12px] font-bold tracking-[.2em] text-gold uppercase">{{ tiers[2].name }}</p>
             <p class="mb-5 font-serif text-[40px] leading-none font-bold sm:text-[46px]">
               <span class="align-middle text-[18px] font-normal">от</span>
-              85 000
+              {{ tiers[2].price }}
               <span class="align-middle text-[18px] font-normal opacity-60">руб</span>
             </p>
             <p class="mb-5 text-[14px] leading-relaxed text-slate">
-              Шторы прямого кроя из ткани класса премиум с декором, кантом, на фигурной шторной
-              ленте
+              {{ tiers[2].text }}
             </p>
             <div class="mb-5 h-px bg-navy/10"></div>
             <ul class="mb-5 text-[14px] [&>li]:flex [&>li]:gap-2.5 [&>li]:py-1.5">
-              <li>
-                <span class="font-bold">✓</span>
-                Тюль с пошивом
-              </li>
-              <li>
-                <span class="font-bold">✓</span>
-                Портьеры с пошивом
-              </li>
-              <li>
-                <span class="font-bold">✓</span>
-                Алюминиевый потолочный карниз двухрядный улучшенного скольжения
-              </li>
-              <li>
-                <span class="font-bold">✓</span>
-                Авторский надзор проекта
-              </li>
+              @for (feature of tiers[2].features; track feature) {
+                <li>
+                  <span class="font-bold text-gold">✓</span>
+                  {{ feature }}
+                </li>
+              }
             </ul>
             <p class="mb-2 text-[12px] font-bold tracking-[.15em] uppercase">В подарок</p>
-            <ul class="mb-6 text-[14px] text-slate [&>li]:py-1">
-              <li>Выезд ведущего дизайнера и замерщика с образцами тканей</li>
-              <li>Эскиз 1 вариант</li>
-              <li>Наволочка под интерьер</li>
+            <ul
+              class="mb-6 text-[14px] text-slate [&>li]:flex [&>li]:items-start [&>li]:gap-2.5 [&>li]:py-1"
+            >
+              @for (gift of tiers[2].gifts; track gift.text) {
+                <li>
+                  <site-icon
+                    [name]="gift.icon"
+                    [size]="16"
+                    [strokeWidth]="1.5"
+                    class="mt-0.5 text-gold"
+                  />
+                  <span>{{ gift.text }}</span>
+                </li>
+              }
             </ul>
-            <p class="mb-6 text-[12px] text-slate/70">*Срок изготовления 7 дней</p>
+            <p class="mb-6 text-[12px] text-slate/70">
+              *Срок изготовления {{ tiers[2].term }} ({{ availabilityNote }})
+            </p>
             <a fragment="lead" class="btn-gold !flex w-full" [routerLink]="[]">Оставить заявку</a>
           </div>
         </div>
@@ -245,13 +253,11 @@
           <div>
             <p class="mb-1 text-[12px] font-bold tracking-[.12em] text-gold uppercase">Адрес</p>
             <a
-              href="https://yandex.ru/maps/-/CTxLMJIy"
+              data-contact-link="map"
               target="_blank"
               rel="noopener"
               class="text-[14px] underline decoration-gold/50 decoration-dashed underline-offset-4 hover:text-gold"
-            >
-              Троицк, Кварцевая улица, 3, корп. 2
-            </a>
+            ></a>
           </div>
         </li>
         <li class="flex gap-4">

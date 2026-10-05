@@ -345,7 +345,7 @@
     const widthIn = $('[data-calc-width]', calc);
     const heightIn = $('[data-calc-height]', calc);
     const rodIn = $('[data-calc-rod]', calc);
-    const rod = catalogData.find((c) => c.key === 'curtain-rods');
+      const rod = catalogData.find((c) => c.key === 'curtain-rods');
     const curtains = catalogData.filter((c) => c.key !== 'curtain-rods');
     kinds.innerHTML = curtains
       .map(
@@ -360,10 +360,10 @@
           '" alt="" loading="lazy" class="calc-kind-img" />' +
           '<b class="font-serif text-[14px] leading-tight">' +
           c.title +
-          '</b><span class="text-[12px] text-slate/80">от ' +
-          money(c.min) +
-          ' ₽/' +
-          c.unit +
+          '</b><span class="text-[12px] text-slate/80">' +
+          (c.min === null
+            ? c.priceLabel || 'Уточнить наличие'
+            : 'от ' + money(c.min) + ' ₽/' + c.unit) +
           '</span></span></label>',
       )
       .join('');
@@ -398,12 +398,19 @@
         : 'От верха рамы до подоконника или до нижнего края створки.';
       $('[data-calc-title]', calc).textContent = kind.title;
       const rows = [];
-      let total = 0,
+      let total = null,
         summary = '';
       if (!bad) {
         const wm = w / 100,
           hm = h / 100;
-        if (byMeter) {
+        if (kind.min === null) {
+          rows.push(['Стоимость', kind.priceLabel || 'Уточнить наличие']);
+          summary = kind.title + ': стоимость уточняется';
+        } else if (kind.unit === 'шт.') {
+          total = kind.min;
+          rows.push(['Размер', money(w) + ' × ' + money(h) + ' см'], ['Количество', '1 шт.']);
+          summary = kind.title + ': ' + w + ' × ' + h + ' см, 1 шт.';
+        } else if (byMeter) {
           const k = Number($('input[name="fullness"]:checked', calc)?.value || 2);
           const fabric = Math.ceil((wm * k + 0.2) * 10) / 10; // +20 см на боковые подгибы
           const cut = Math.ceil((hm + 0.3) * 10) / 10; // +30 см на подгиб низа и тесьму
@@ -434,8 +441,8 @@
           );
           summary = kind.title + ': ' + w + ' × ' + h + ' см, площадь ~' + dec(area) + ' м²';
         }
-        rows.push([kind.title, 'от ' + money(total) + ' ₽']);
-        if (rodIn.checked && rod) {
+        if (total !== null) rows.push([kind.title, 'от ' + money(total) + ' ₽']);
+        if (rodIn.checked && rod && rod.min !== null) {
           const rodM = Math.ceil(wm * 10) / 10;
           const rodSum = rodM * rod.min;
           rows.push(['Карниз ' + dec(rodM) + ' м', 'от ' + money(rodSum) + ' ₽']);
@@ -453,8 +460,16 @@
             '</dd></div>',
         )
         .join('');
-      $('[data-calc-total]', calc).textContent = bad ? '—' : 'от ' + money(total) + ' ₽';
-      calc.dataset.summary = bad ? '' : summary + '. Ориентировочно от ' + money(total) + ' ₽.';
+      $('[data-calc-total]', calc).textContent = bad
+        ? '—'
+        : total === null
+          ? 'Уточнить наличие'
+          : 'от ' + money(total) + ' ₽';
+      calc.dataset.summary = bad
+        ? ''
+        : total === null
+          ? summary + '.'
+          : summary + '. Ориентировочно от ' + money(total) + ' ₽.';
       const hidden = $('[data-inline-lead="calc"] [data-inline-comment]');
       if (hidden)
         hidden.value = calc.dataset.summary
@@ -528,10 +543,10 @@
             '" loading="lazy" class="absolute inset-0 size-full object-cover" /></div>' +
             '<div class="flex items-center justify-between gap-3 p-5"><span><b class="block font-serif text-[20px] leading-tight">' +
             c.title +
-            '</b><span class="text-[14px] text-cream/70">от ' +
-            money(c.min) +
-            ' ₽/' +
-            c.unit +
+            '</b><span class="text-[14px] text-cream/70">' +
+            (c.min === null
+              ? c.priceLabel || 'Уточнить наличие'
+              : 'от ' + money(c.min) + ' ₽/' + c.unit) +
             '</span></span>' +
             '<span class="text-gold transition-transform duration-300 group-hover:translate-x-1">→</span></div></a>',
         )

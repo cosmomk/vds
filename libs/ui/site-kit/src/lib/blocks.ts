@@ -263,6 +263,7 @@ export class SitePriceTable {
   readonly section = input.required<SitePriceSection>();
   readonly layout = input<'auto' | 'table' | 'cards'>('auto');
   readonly root = input('');
+  readonly showSectionLink = input(true);
 }
 
 /** Вкладки цен: активная вкладка тёмная с золотым текстом, стрелки ←/→ переключают. */

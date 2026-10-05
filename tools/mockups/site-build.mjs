@@ -29,9 +29,26 @@ import { Scanner } from '@tailwindcss/oxide';
 const SITE = 'apps/mockups/public/legacy/site';
 const SRC = path.join(SITE, 'src');
 const read = (p) => readFileSync(path.join(SRC, p), 'utf8');
+const SITE_SETTINGS = JSON.parse(
+  readFileSync('libs/ui/site-kit/src/lib/site-settings.json', 'utf8'),
+);
 
 // Общая конфигурация цен используется мокапами и Angular-сайтом.
 const PRICE_CONFIG = JSON.parse(readFileSync('libs/ui/site-kit/src/lib/site-prices.json', 'utf8'));
+const renderGiftIcon = (name) => {
+  if (!['map-pin', 'pencil-ruler', 'sofa'].includes(name)) {
+    throw new Error(`Неизвестная иконка подарка: ${name}`);
+  }
+
+  return readFileSync(`node_modules/@taiga-ui/icons/src/${name}.svg`, 'utf8')
+    .trim()
+    .replace(/\r?\n\s*/g, ' ')
+    .replace('<svg', '<svg aria-hidden="true" class="mt-0.5 size-4 shrink-0 text-gold"')
+    .replace(/\bwidth="24"/, 'width="16"')
+    .replace(/\bheight="24"/, 'height="16"')
+    .replace(/stroke-width="[^"]*"/, 'stroke-width="1.5"')
+    .replace(/>\s+</g, '><');
+};
 const CATALOG_META = [
   ['blackout-curtains', 'Это идеальное решение для тех, кто ценит тишину и комфорт в своем доме'],
   ['roman-blinds', 'Из плотных и легких тканей для прямых и скошенных окон.'],
@@ -51,7 +68,7 @@ const CATALOG = CATALOG_META.map(([key, text]) => {
     image: section.image.split('/').at(-1),
     prices: section.rows.map((row) => [
       row.name,
-      row.priceMax ? [row.priceMin, row.priceMax] : row.priceMin,
+      row.priceLabel ?? (row.priceMax ? [row.priceMin, row.priceMax] : row.priceMin),
       row.unit ?? section.unit,
     ]),
   };
@@ -59,14 +76,22 @@ const CATALOG = CATALOG_META.map(([key, text]) => {
 
 const money = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 const priceText = (p) => (Array.isArray(p) ? `${money(p[0])}–${money(p[1])}` : money(p));
-const minOf = (item) =>
-  item.prices.reduce(
+const minOf = (item) => {
+  const rows = item.prices.filter((row) => typeof row[1] === 'number' || Array.isArray(row[1]));
+  if (!rows.length) return ['Уточнить наличие', ''];
+  return rows.reduce(
     (m, r) => (Math.min(...[].concat(r[1])) < m[0] ? [Math.min(...[].concat(r[1])), r[2]] : m),
     [Infinity, ''],
   );
+};
+const rowPrice = (row) =>
+  typeof row[1] === 'string'
+    ? row[1]
+    : `${Array.isArray(row[1]) ? '' : 'от '}${priceText(row[1])} ₽/${row[2]}`;
 
 const configuredPrice = (section, rowIndex) => {
-  const row = section.rows[rowIndex];
+  const row = section.rows[rowIndex % section.rows.length];
+  if (row.priceLabel) return row.priceLabel;
   const unit = row.unit ?? section.unit;
   return row.priceMax
     ? `${money(row.priceMin)}–${money(row.priceMax)} ₽/${unit}`
@@ -105,19 +130,6 @@ const applyConfiguredPrices = (body, pagePath) => {
 
   if (pagePath === '') {
     return replaceBlocks(body, (key) => `href="./catalog/${key}/"`, [0, 0, 1, 2]);
-  }
-  if (pagePath === 'price/') {
-    for (const section of PRICE_CONFIG.sections) {
-      const start = body.indexOf(`id="panel-${section.key}"`);
-      if (start < 0) continue;
-      const next = body.indexOf('role="tabpanel"', start + 1);
-      const end = next < 0 ? body.length : body.lastIndexOf('<div', next);
-      const block = body.slice(start, end);
-      body =
-        body.slice(0, start) +
-        replacePriceSequence(block, [0, 1, 2, 0, 1, 2], section) +
-        body.slice(end);
-    }
   }
   return body;
 };
@@ -181,8 +193,7 @@ const PAGES = [
     path: 'contact/',
     h1: 'Контакты',
     title: 'Контакты салона штор Shtorivdom — адрес, телефон',
-    description:
-      'Салон штор Shtorivdom: Троицк, Кварцевая улица, 3, корп. 2. Работаем без выходных с 10:00 до 20:00. Телефон +7 (915) 359-12-00.',
+    description: `Салон штор Shtorivdom: ${SITE_SETTINGS.contacts.address}. Работаем без выходных с 10:00 до 20:00. Телефон ${SITE_SETTINGS.contacts.phone}.`,
   },
   {
     path: 'privacy-policy/',
@@ -237,14 +248,14 @@ const catalogCards = (root) =>
             <div class="absolute inset-0 bg-gradient-to-t from-navy/75 to-transparent to-60%"></div>
             <div class="absolute inset-x-5 bottom-4 flex flex-wrap items-end justify-between gap-2">
               <h3 class="text-[20px] font-bold text-cream">${c.title}</h3>
-              <span class="rounded-[2px] bg-navy/60 px-2.5 py-1 text-[12px] font-bold whitespace-nowrap text-gold">от ${money(min)} ₽/${unit}</span>
+              <span class="rounded-[2px] bg-navy/60 px-2.5 py-1 text-[12px] font-bold whitespace-nowrap text-gold">${typeof min === 'number' ? `от ${money(min)} ₽/${unit}` : min}</span>
             </div>
           </a>
           <div class="px-6 pt-6 pb-5">
             <p class="mb-4 text-[14px] leading-[1.75] font-light text-slate">${c.text}</p>
             <div>
               <ul class="mb-4">
-                ${c.prices.map((r) => `<li class="flex items-baseline gap-2.5 py-1.5 text-[14px]"><span class="font-bold text-gold">✓</span><span class="flex-1">${r[0]}</span><span class="font-bold whitespace-nowrap">${Array.isArray(r[1]) ? '' : 'от '}${priceText(r[1])} ₽/${r[2]}</span></li>`).join('\n                ')}
+                ${c.prices.map((r) => `<li class="flex items-baseline gap-2.5 py-1.5 text-[14px]"><span class="font-bold text-gold">✓</span><span class="flex-1">${r[0]}</span><span class="font-bold whitespace-nowrap">${rowPrice(r)}</span></li>`).join('\n                ')}
               </ul>
               <a href="${root}catalog/${c.key}/" class="mb-4 inline-flex items-center gap-2 text-[12px] font-bold tracking-[.1em] text-gold uppercase transition-opacity hover:opacity-75">Подробнее →</a>
             </div>
@@ -256,7 +267,7 @@ const catalogCards = (root) =>
 const priceRows = (root) =>
   CATALOG.map((c) => {
     const [min, unit] = minOf(c);
-    return `<a href="${root}catalog/${c.key}/" class="group flex items-baseline gap-3 border-b border-navy/10 py-3.5 transition-colors hover:text-gold"><span class="flex flex-1 items-center gap-2 text-[14px]">${c.title}<span class="text-gold transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></span><span class="text-[14px] font-bold whitespace-nowrap">от ${money(min)} ₽/${unit}</span></a>`;
+    return `<a href="${root}catalog/${c.key}/" class="group flex items-baseline gap-3 border-b border-navy/10 py-3.5 transition-colors hover:text-gold"><span class="flex flex-1 items-center gap-2 text-[14px]">${c.title}<span class="text-gold transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></span><span class="text-[14px] font-bold whitespace-nowrap">${typeof min === 'number' ? `от ${money(min)} ₽/${unit}` : min}</span></a>`;
   }).join('\n        ');
 
 // Метаданные — как на основном сайте (apps/shtorivdom-site: src/index.html, seo.ts,
@@ -281,12 +292,13 @@ const ORG_LD = `  <!-- Карточка организации для поиск
       "description": "Салон штор: пошив штор на заказ, жалюзи, карнизы. Бесплатный выезд дизайнера.",
       "url": "https://shtorivdom.ru/",
       "logo": "https://shtorivdom.ru/assets/favicon/favicon-96x96.png",
-      "telephone": "+79153591200",
-      "email": "info@shtorivdom.ru",
+      "telephone": "${SITE_SETTINGS.contacts.tel}",
+      "email": "${SITE_SETTINGS.contacts.email}",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Кварцевая улица, 3, корп. 2",
-        "addressLocality": "Троицк, Москва",
+        "streetAddress": "${SITE_SETTINGS.contacts.streetAddress}",
+        "addressLocality": "${SITE_SETTINGS.contacts.addressLocality}",
+        "addressRegion": "${SITE_SETTINGS.contacts.addressRegion}",
         "addressCountry": "RU"
       },
       "areaServed": ["Москва", "Московская область"],
@@ -400,7 +412,8 @@ for (const page of PAGES) {
             key: c.key,
             title: c.title,
             unit,
-            min,
+            min: typeof min === 'number' ? min : null,
+            priceLabel: typeof min === 'string' ? min : null,
             image: `${root}assets/img/catalog/${c.key}/${c.image}`,
             href: `${root}catalog/${c.key}/`,
           };
@@ -410,7 +423,46 @@ for (const page of PAGES) {
     .replaceAll('{{root}}', root)
     .replaceAll('{{home}}', home)
     .replaceAll('{{h1}}', page.h1 ?? '')
-    .replaceAll('{{lead}}', page.lead ?? '');
+    .replaceAll('{{lead}}', page.lead ?? '')
+    .replaceAll('{{contacts.phone}}', SITE_SETTINGS.contacts.phone)
+    .replaceAll('{{contacts.tel}}', `tel:${SITE_SETTINGS.contacts.tel}`)
+    .replaceAll('{{contacts.address}}', SITE_SETTINGS.contacts.address)
+    .replaceAll('{{legal.name}}', SITE_SETTINGS.legal.name)
+    .replaceAll('{{legal.operatorInstrumental}}', SITE_SETTINGS.legal.operatorInstrumental)
+    .replaceAll('{{legal.operatorDative}}', SITE_SETTINGS.legal.operatorDative)
+    .replaceAll('{{legal.inn}}', SITE_SETTINGS.legal.inn)
+    .replaceAll('{{legal.ogrnip}}', SITE_SETTINGS.legal.ogrnip)
+    .replaceAll('{{contact.telegram}}', SITE_SETTINGS.contacts.telegram)
+    .replaceAll('{{notice.showroomWeekend}}', SITE_SETTINGS.notices.showroomWeekend)
+    .replaceAll('{{availabilityNote}}', PRICE_CONFIG.availabilityNote)
+    .replaceAll('{{contacts.phone}}', SITE_SETTINGS.contacts.phone)
+    .replaceAll('{{contacts.tel}}', `tel:${SITE_SETTINGS.contacts.tel}`);
+  for (const tier of PRICE_CONFIG.tiers) {
+    const key = tier.tone;
+    html = html
+      .replaceAll(`{{tier.${key}.name}}`, tier.name)
+      .replaceAll(`{{tier.${key}.price}}`, tier.price)
+      .replaceAll(`{{tier.${key}.text}}`, tier.text)
+      .replaceAll(`{{tier.${key}.term}}`, tier.term)
+      .replaceAll(
+        `{{tier.${key}.features}}`,
+        tier.features
+          .map(
+            (feature) =>
+              `<li><span class="font-bold text-gold">✓</span>${feature}</li>`,
+          )
+          .join(''),
+      )
+      .replaceAll(
+        `{{tier.${key}.gifts}}`,
+        tier.gifts
+          .map(
+            (gift) =>
+              `<li class="flex items-start gap-2.5">${renderGiftIcon(gift.icon)}<span>${gift.text}</span></li>`,
+          )
+          .join(''),
+      );
+  }
   const out = path.join(SITE, page.path, 'index.html');
   mkdirSync(path.dirname(out), { recursive: true });
   writeFileSync(out, html);

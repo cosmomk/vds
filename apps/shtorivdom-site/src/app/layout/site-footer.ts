@@ -1,6 +1,7 @@
 import { RouterLink } from '@angular/router';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ContactLinksDirective } from '../contact-links.directive';
+import { SITE_LEGAL_DETAILS } from '../site-legal-details';
 
 @Component({
   selector: 'app-site-footer',
@@ -9,4 +10,6 @@ import { ContactLinksDirective } from '../contact-links.directive';
   imports: [RouterLink, ContactLinksDirective],
   host: { class: 'block' },
 })
-export class SiteFooter {}
+export class SiteFooter {
+  protected readonly legalDetails = SITE_LEGAL_DETAILS;
+}

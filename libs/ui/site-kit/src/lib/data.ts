@@ -1,5 +1,9 @@
 import priceConfig from './site-prices.json';
+import siteSettings from './site-settings.json';
 import { InjectionToken } from '@angular/core';
+
+export const SITE_SETTINGS = siteSettings;
+export const SITE_CONTACTS = SITE_SETTINGS.contacts;
 
 /** Базовый путь к картинкам сайта (assets/img, assets/icons). На сайте — 'assets/', в Storybook — 'site-assets/'. */
 export const SITE_ASSETS_URL = new InjectionToken<string>('SITE_ASSETS_URL', {
@@ -31,6 +35,9 @@ export interface SiteContacts {
   tel: string;
   email: string;
   address: string;
+  streetAddress: string;
+  addressLocality: string;
+  addressRegion: string;
   addressLink: string;
   hours: string;
   telegram: string;
@@ -78,9 +85,11 @@ const SITE_CATALOG_DETAILS: Record<string, { text: string; photos: number }> = {
 };
 
 const rawPriceLabel = (
-  row: { priceMin: number; priceMax?: number; unit?: string },
+  row: { priceMin?: number; priceMax?: number; priceLabel?: string; unit?: string },
   defaultUnit: string,
 ): string => {
+  if (row.priceLabel) return row.priceLabel;
+  if (row.priceMin === undefined) return 'Уточнить наличие';
   const unit = row.unit ?? defaultUnit;
   return row.priceMax
     ? `${row.priceMin.toLocaleString('ru-RU')}–${row.priceMax.toLocaleString('ru-RU')} ₽/${unit}`
@@ -107,7 +116,7 @@ export const SITE_CATALOG: SiteCatalogSection[] = priceConfig.sections.map((sect
 export interface SitePriceRow {
   name: string;
   country: string;
-  width: string;
+  height: string;
   warranty: string;
   price: string;
 }
@@ -115,16 +124,18 @@ export interface SitePriceRow {
 export interface SitePriceSection {
   key: string;
   title: string;
+  priceNote: string;
   rows: SitePriceRow[];
 }
 
 export interface SitePriceConfigRow {
   name: string;
   country: string;
-  width: number | [number, number] | null;
+  height: number | string | [number, number] | null;
   warranty: number;
-  priceMin: number;
+  priceMin?: number;
   priceMax?: number;
+  priceLabel?: string;
   unit?: string;
 }
 
@@ -138,12 +149,16 @@ export interface SitePriceConfigSection {
 
 export interface SitePriceConfig {
   currency: 'RUB';
+  priceNote: string;
+  availabilityNote: string;
+  tiers: SiteTier[];
   calculator: { curtainRodPerLinearMeter: number };
   sections: SitePriceConfigSection[];
 }
 
 /** Единственный источник цен сайта. Редактировать site-prices.json. */
 export const SITE_PRICE_CONFIG = priceConfig as SitePriceConfig;
+export const SITE_ORDER_AVAILABILITY_NOTE = SITE_PRICE_CONFIG.availabilityNote;
 
 const priceNumber = (value: number): string => value.toLocaleString('ru-RU');
 const decimalNumber = (value: number): string => value.toLocaleString('ru-RU');
@@ -153,6 +168,8 @@ const warrantyLabel = (years: number): string => {
 };
 
 export const formatSitePrice = (row: SitePriceConfigRow, defaultUnit: string): string => {
+  if (row.priceLabel) return row.priceLabel;
+  if (row.priceMin === undefined) return 'Уточнить наличие';
   const unit = row.unit ?? defaultUnit;
   return row.priceMax
     ? `${priceNumber(row.priceMin)}–${priceNumber(row.priceMax)} ₽/${unit}`
@@ -162,30 +179,40 @@ export const formatSitePrice = (row: SitePriceConfigRow, defaultUnit: string): s
 export const SITE_PRICES: SitePriceSection[] = SITE_PRICE_CONFIG.sections.map((section) => ({
   key: section.key,
   title: section.title,
+  priceNote: SITE_PRICE_CONFIG.priceNote,
   rows: section.rows.map((row) => ({
     name: row.name,
     country: row.country,
-    width: Array.isArray(row.width)
-      ? `${decimalNumber(row.width[0])}–${decimalNumber(row.width[1])}`
-      : row.width === null
+    height: Array.isArray(row.height)
+      ? `${decimalNumber(row.height[0])}–${decimalNumber(row.height[1])}`
+      : row.height === null
         ? '—'
-        : decimalNumber(row.width),
+        : typeof row.height === 'number'
+          ? decimalNumber(row.height)
+          : row.height,
     warranty: warrantyLabel(row.warranty),
     price: formatSitePrice(row, section.unit),
   })),
 }));
 
-export const siteMinimumPrice = (section: SitePriceConfigSection): number =>
-  Math.min(...section.rows.map((row) => row.priceMin));
+export const siteMinimumPrice = (section: SitePriceConfigSection): number | null => {
+  const prices = section.rows.flatMap((row) => (row.priceMin === undefined ? [] : [row.priceMin]));
+  return prices.length ? Math.min(...prices) : null;
+};
 
-export const formatSiteMinimumPrice = (section: SitePriceConfigSection): string =>
-  `от ${priceNumber(siteMinimumPrice(section))} ₽/${section.unit}`;
+export const formatSiteMinimumPrice = (section: SitePriceConfigSection): string => {
+  const minimum = siteMinimumPrice(section);
+  return minimum === null
+    ? (section.rows[0]?.priceLabel ?? 'Уточнить наличие')
+    : `от ${priceNumber(minimum)} ₽/${section.unit}`;
+};
 
 export const sitePriceOffer = (key: string) => {
   const section = SITE_PRICE_CONFIG.sections.find((item) => item.key === key);
   if (!section) throw new Error(`Нет настройки цен для раздела ${key}`);
+  if (section.rows.some((row) => row.priceMin === undefined)) return undefined;
   const values = section.rows.flatMap((row) =>
-    row.priceMax ? [row.priceMin, row.priceMax] : [row.priceMin],
+    row.priceMax ? [row.priceMin!, row.priceMax] : [row.priceMin!],
   );
   return {
     '@type': 'AggregateOffer' as const,
@@ -270,66 +297,16 @@ export interface SiteTier {
   price: string;
   text: string;
   features: string[];
-  gifts: string[];
+  gifts: SiteGift[];
   term: string;
 }
 
-export const SITE_TIERS: SiteTier[] = [
-  {
-    tone: 'standard',
-    term: '14 дней',
-    name: 'Стандарт',
-    price: '39 000',
-    text: 'Шторы прямого кроя из ткани класса стандарт на стандартной шторной ленте без подкладки',
-    features: [
-      'Тюль с пошивом',
-      'Портьеры с пошивом',
-      'Алюминиевый потолочный карниз двухрядный',
-      'Авторский надзор проекта',
-    ],
-    gifts: [
-      'Выезд дизайнера и замерщика с образцами тканей',
-      'Эскиз 1 вариант',
-      'Наволочка под интерьер',
-    ],
-  },
-  {
-    tone: 'premium',
-    term: '10 дней',
-    name: 'Премиум',
-    price: '58 000',
-    text: 'Шторы прямого кроя из ткани класса премиум с декором, кантом, на фигурной шторной ленте',
-    features: [
-      'Тюль с пошивом',
-      'Портьеры с пошивом',
-      'Алюминиевый потолочный карниз двухрядный улучшенного скольжения',
-      'Подхват — декоративная кисть',
-    ],
-    gifts: [
-      'Выезд дизайнера и замерщика с образцами тканей',
-      'Эскиз 1 вариант',
-      'Наволочка под интерьер',
-    ],
-  },
-  {
-    tone: 'lux',
-    term: '7 дней',
-    name: 'Люкс',
-    price: '85 000',
-    text: 'Шторы прямого кроя из ткани класса премиум с декором, кантом, на фигурной шторной ленте',
-    features: [
-      'Тюль с пошивом',
-      'Портьеры с пошивом',
-      'Алюминиевый потолочный карниз двухрядный улучшенного скольжения',
-      'Авторский надзор проекта',
-    ],
-    gifts: [
-      'Выезд ведущего дизайнера и замерщика с образцами тканей',
-      'Эскиз 1 вариант',
-      'Наволочка под интерьер',
-    ],
-  },
-];
+export interface SiteGift {
+  text: string;
+  icon: 'map-pin' | 'pencil-ruler' | 'sofa';
+}
+
+export const SITE_TIERS = SITE_PRICE_CONFIG.tiers;
 
 export const SITE_NAV: { label: string; path: string }[] = [
   { label: 'Цены', path: 'price/' },

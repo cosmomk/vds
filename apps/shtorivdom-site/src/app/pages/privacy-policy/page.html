@@ -8,15 +8,15 @@
         <a routerLink="/" class="hover:text-gold">Главная</a>
       </nav>
       <h1
-        class="rise text-[30px] leading-[1.15] font-bold [overflow-wrap:anywhere] hyphens-auto sm:text-[52px]"
+        class="rise text-[24px] leading-[1.2] font-bold [overflow-wrap:anywhere] hyphens-auto sm:text-[38px]"
       >
         Политика конфиденциальности
       </h1>
     </div>
   </section>
   <section class="py-12 sm:py-16">
-    <div class="wrap grid items-start gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-12">
-      <aside class="lg:sticky lg:top-24">
+    <div class="wrap grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12">
+      <aside class="lg:col-start-2 lg:row-start-1">
         <nav
           class="rounded-[4px] border border-gold/25 bg-white px-5 py-6"
           aria-label="Содержание"
@@ -152,7 +152,7 @@
         </nav>
       </aside>
       <article
-        class="min-w-0 rounded-[4px] bg-white px-5 py-8 shadow-[0_2px_20px_rgb(13_34_61/.06)] sm:px-12 sm:py-12"
+        class="min-w-0 rounded-[4px] bg-white px-5 py-8 shadow-[0_2px_20px_rgb(13_34_61/.06)] sm:px-12 sm:py-12 lg:col-start-1 lg:row-start-1"
       >
         <p
           class="mb-8 border-b border-navy/10 pb-6 font-serif text-[24px] leading-tight font-bold sm:text-[32px]"
@@ -167,8 +167,9 @@
             Настоящая политика обработки персональных данных составлена в соответствии с
             требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» (далее —
             Закон о персональных данных) и определяет порядок обработки персональных данных и меры
-            по обеспечению безопасности персональных данных, предпринимаемые ООО «Shtorivdom» (далее
-            — Оператор).
+            по обеспечению безопасности персональных данных, предпринимаемые
+            {{ legalDetails.operatorInstrumental }} (далее — Оператор; ИНН {{ legalDetails.inn }};
+            ОГРНИП {{ legalDetails.ogrnip }}).
           </p>
           <p>
             1.1. Оператор ставит своей важнейшей целью и условием осуществления своей деятельности
@@ -662,13 +663,11 @@
           <div>
             <p class="mb-1 text-[12px] font-bold tracking-[.12em] text-gold uppercase">Адрес</p>
             <a
-              href="https://yandex.ru/maps/-/CTxLMJIy"
+              data-contact-link="map"
               target="_blank"
               rel="noopener"
               class="text-[14px] underline decoration-gold/50 decoration-dashed underline-offset-4 hover:text-gold"
-            >
-              Троицк, Кварцевая улица, 3, корп. 2
-            </a>
+            ></a>
           </div>
         </li>
         <li class="flex gap-4">

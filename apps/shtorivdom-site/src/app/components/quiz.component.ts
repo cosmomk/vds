@@ -21,7 +21,7 @@ type Recommendation = {
   key: string;
   title: string;
   unit: string;
-  min: number;
+  min: number | null;
   image: string;
   href: string;
 };

@@ -1,6 +1,7 @@
 // Сгенерировано tools/mockups/site-to-angular.mjs — руками не править.
 import { Route } from '@angular/router';
 import { SeoData } from './seo';
+import { SITE_CONTACTS } from './site-contacts';
 import { sitePriceOffer } from '@shtorivdom/site-kit';
 
 export const sitePages: Route[] = [
@@ -1235,8 +1236,7 @@ export const sitePages: Route[] = [
     data: {
       seo: {
         title: 'Контакты салона штор Shtorivdom — адрес, телефон',
-        description:
-          'Салон штор Shtorivdom: Троицк, Кварцевая улица, 3, корп. 2. Работаем без выходных с 10:00 до 20:00. Телефон +7 (915) 359-12-00.',
+        description: `Салон штор Shtorivdom: ${SITE_CONTACTS.address}. Работаем без выходных с 10:00 до 20:00. Телефон ${SITE_CONTACTS.phone}.`,
         image: 'https://shtorivdom.ru/assets/img/telegram.svg',
         jsonLd: [
           {
@@ -1248,12 +1248,13 @@ export const sitePages: Route[] = [
             url: 'https://shtorivdom.ru/',
             logo: 'https://shtorivdom.ru/assets/favicon/favicon-96x96.png',
             image: 'https://shtorivdom.ru/assets/img/hero.jpg',
-            telephone: '+79153591200',
-            email: 'info@shtorivdom.ru',
+            telephone: SITE_CONTACTS.tel,
+            email: SITE_CONTACTS.email,
             address: {
               '@type': 'PostalAddress',
-              streetAddress: 'Кварцевая улица, 3, корп. 2',
-              addressLocality: 'Троицк, Москва',
+              streetAddress: SITE_CONTACTS.streetAddress,
+              addressLocality: SITE_CONTACTS.addressLocality,
+              addressRegion: SITE_CONTACTS.addressRegion,
               addressCountry: 'RU',
             },
             areaServed: ['Москва', 'Московская область'],
@@ -1314,12 +1315,13 @@ export const sitePages: Route[] = [
             url: 'https://shtorivdom.ru/',
             logo: 'https://shtorivdom.ru/assets/favicon/favicon-96x96.png',
             image: 'https://shtorivdom.ru/assets/img/hero.jpg',
-            telephone: '+79153591200',
-            email: 'info@shtorivdom.ru',
+            telephone: SITE_CONTACTS.tel,
+            email: SITE_CONTACTS.email,
             address: {
               '@type': 'PostalAddress',
-              streetAddress: 'Кварцевая улица, 3, корп. 2',
-              addressLocality: 'Троицк, Москва',
+              streetAddress: SITE_CONTACTS.streetAddress,
+              addressLocality: SITE_CONTACTS.addressLocality,
+              addressRegion: SITE_CONTACTS.addressRegion,
               addressCountry: 'RU',
             },
             areaServed: ['Москва', 'Московская область'],
