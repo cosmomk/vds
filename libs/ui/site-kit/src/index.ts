@@ -8,5 +8,7 @@ export * from './lib/icon.component';
 export * from './lib/layout';
 export * from './lib/logo.component';
 export * from './lib/social-links.component';
+export * from './lib/site-fabric-catalog.component';
+export * from './lib/site-fabric-recommendations.component';
 export * from './lib/text-link.component';
 export * from './lib/to-top.component';

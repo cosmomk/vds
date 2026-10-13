@@ -1,0 +1,62 @@
+<section class="bg-cream py-14 sm:py-20">
+  <div class="wrap">
+    <div class="reveal mb-10 max-w-[760px]">
+      <p class="eyebrow">Коллекция WGART</p>
+      <h2 class="h2">
+        Ткани для
+        <span class="text-gold italic">ваших штор</span>
+      </h2>
+      <p class="mt-4 text-[14px] leading-[1.8] text-slate">
+        Фактуры и характеристики собраны по каталогу коллекции. Состав, оттенок и доступность
+        конкретной ткани подтвердит дизайнер по актуальному образцу.
+      </p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      @for (fabric of fabrics; track fabric.key) {
+        <article class="reveal relative overflow-hidden border border-navy/10 bg-white">
+          <a
+            class="relative z-10 block"
+            [routerLink]="'/fabrics/' + fabric.key + '/'"
+            [attr.aria-label]="'Подробнее о ткани ' + fabric.name"
+          >
+            <img
+              width="640"
+              height="480"
+              loading="lazy"
+              class="aspect-[4/3] w-full object-cover"
+              [src]="fabric.image"
+              [alt]="fabric.name + ' — образец ткани'"
+            />
+          </a>
+          <div class="p-5 sm:p-6">
+            <p class="mb-2 text-[12px] font-bold tracking-[.16em] text-gold uppercase">
+              {{ fabric.kind }}
+            </p>
+            <h3 class="mb-3 font-serif text-[24px] font-bold text-navy">
+              <a
+                class="fabric-card-link transition-colors hover:text-gold"
+                [routerLink]="'/fabrics/' + fabric.key + '/'"
+              >
+                {{ fabric.name }}
+              </a>
+            </h3>
+            <p class="mb-5 text-[14px] leading-[1.7] text-slate">{{ fabric.summary }}</p>
+            <dl class="grid gap-2 border-t border-navy/10 pt-4 text-[14px]">
+              @for (fact of fabric.facts; track fact.label) {
+                <div class="flex justify-between gap-4">
+                  <dt class="text-slate/70">{{ fact.label }}</dt>
+                  <dd class="text-right font-bold text-navy">{{ fact.value }}</dd>
+                </div>
+              }
+            </dl>
+          </div>
+        </article>
+      }
+    </div>
+    <p class="mt-8 border-l-2 border-gold bg-white px-5 py-4 text-[14px] leading-[1.7] text-slate">
+      Ткани для рулонных штор и плиссе подбираются отдельно под систему и механизм. Затемнение также
+      зависит от конструкции изделия, боковых щелей и способа монтажа — характеристики ткани сами по
+      себе не гарантируют полной темноты в комнате.
+    </p>
+  </div>
+</section>

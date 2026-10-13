@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { SITE_FABRICS } from '@shtorivdom/site-kit';
 import { sitePages } from '../../site-pages';
 
 @Component({
@@ -21,15 +22,21 @@ export class SiteMapPage {
     { title: 'Контакты', url: '/contact' },
   ];
 
-  protected readonly catalogPages = sitePages
-    .filter((page) => page.path?.startsWith('catalog/'))
-    .map((page) => {
-      const path = page.path ?? '';
-      const seo = page.data?.['seo'] as { title?: string } | undefined;
+  protected readonly catalogPages = [
+    ...sitePages
+      .filter((page) => page.path?.startsWith('catalog/'))
+      .map((page) => {
+        const path = page.path ?? '';
+        const seo = page.data?.['seo'] as { title?: string } | undefined;
 
-      return {
-        title: seo?.title?.replace(/\s*\|\s*Shtorivdom.*$/, '') ?? path,
-        url: '/' + path,
-      };
-    });
+        return {
+          title: seo?.title?.replace(/\s*\|\s*Shtorivdom.*$/, '') ?? path,
+          url: '/' + path,
+        };
+      }),
+    ...SITE_FABRICS.map((fabric) => ({
+      title: `Ткань ${fabric.name}`,
+      url: `/fabrics/${fabric.key}/`,
+    })),
+  ];
 }

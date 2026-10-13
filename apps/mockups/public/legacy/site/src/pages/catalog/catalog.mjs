@@ -112,7 +112,9 @@ const range = (v, suffix, single, fmt = money) =>
 const years = (n) =>
   `${n} ${n % 10 === 1 && n % 100 !== 11 ? 'год' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 'года' : 'лет'}`;
 const minPrice = (key) => {
-  const available = PRICES[key].filter((row) => typeof row[4] === 'number' || Array.isArray(row[4]));
+  const available = PRICES[key].filter(
+    (row) => typeof row[4] === 'number' || Array.isArray(row[4]),
+  );
   if (!available.length) return ['Уточнить наличие', ''];
   return available.reduce(
     (m, r) => {
@@ -313,8 +315,8 @@ const priceTable = (key, title) => {
       .join('')}
     </div>
     <div class="reveal mt-10 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-center">
-      <a href="#lead" class="btn-gold group max-sm:w-full">Рассчитать стоимость ${arrow}</a>
-      <a href="{{root}}price/" class="inline-flex items-center justify-center gap-2 rounded-[2px] border border-navy/30 px-[26px] py-[14px] text-[12px] font-bold tracking-[.1em] text-navy uppercase transition-colors hover:border-gold hover:text-gold max-sm:w-full">Все цены →</a>
+      <a href="#lead" class="btn-gold group max-sm:w-full">Рассчитать стоимость</a>
+      <a href="{{root}}price/" class="btn-line btn-glow max-sm:w-full">Все цены</a>
     </div>
   </div>
 </section>`;
@@ -357,7 +359,7 @@ const modelsGrid = () => `
             <p class="mb-2 text-[12px] tracking-[.25em] text-gold uppercase">Модель ${m.key}</p>
             <h3 class="mb-4 text-[20px] leading-snug">${m.title}</h3>
             <div class="cat-gold-line mb-4"></div>
-            <span class="inline-flex items-center gap-2 text-[12px] font-bold tracking-[.2em] text-navy/70 uppercase transition-colors group-hover:text-gold">Подробнее ${arrow}</span>
+            <span class="inline-flex items-center gap-2 text-[12px] font-bold tracking-[.2em] text-navy/70 uppercase transition-colors group-hover:text-gold">Подробнее</span>
           </div>
         </div>
       </a>`,
@@ -422,7 +424,7 @@ const listPage = () => `${styles}
             <div class="cat-gold-line mb-5"></div>
             <div class="flex flex-wrap items-center justify-between gap-3">
               <span class="text-[14px] tracking-[.04em] text-gold">${typeof min === 'number' ? `от ${money(min)} ₽ / ${unit}` : min}</span>
-              <span class="inline-flex items-center gap-1.5 text-[12px] tracking-[.2em] text-cream/60 uppercase transition-colors group-hover:text-gold">Подробнее ${arrow}</span>
+              <span class="inline-flex items-center gap-1.5 text-[12px] tracking-[.2em] text-cream/60 uppercase transition-colors group-hover:text-gold">Подробнее</span>
             </div>
           </div>
         </div>
@@ -434,7 +436,7 @@ const listPage = () => `${styles}
 <section class="bg-cream py-14 sm:py-16">
   <div class="wrap reveal flex flex-col items-start gap-6 border border-gold/30 bg-white px-6 py-8 sm:flex-row sm:items-center sm:px-10">
     <p class="flex-1 font-serif text-[22px] leading-snug sm:text-[24px]">Закажите выезд дизайнера, и он поможет вам определиться в этом прекрасном многообразии.</p>
-    <a href="#lead" class="btn-gold group max-sm:w-full">Пригласить дизайнера ${arrow}</a>
+    <a href="#lead" class="btn-gold group max-sm:w-full">Пригласить дизайнера</a>
   </div>
 </section>
 </main>${tail}`;
@@ -443,9 +445,10 @@ const listPage = () => `${styles}
 const sectionPage = (s) => {
   const detail = parseDetail(s.key);
   const [min, unit] = minPrice(s.key);
-  const priceSummary = typeof min === 'number'
-    ? `<span class="font-serif text-[30px] text-gold">от ${money(min)} ₽</span><span class="text-cream/60">/ ${unit}</span>`
-    : `<span class="font-serif text-[24px] text-gold">${min}</span>`;
+  const priceSummary =
+    typeof min === 'number'
+      ? `<span class="font-serif text-[30px] text-gold">от ${money(min)} ₽</span><span class="text-cream/60">/ ${unit}</span>`
+      : `<span class="font-serif text-[24px] text-gold">${min}</span>`;
   return `${styles}
 <!-- @header -->
 <main>
@@ -458,7 +461,7 @@ const sectionPage = (s) => {
       <p class="rise mb-8 max-w-[520px] text-[18px] leading-relaxed text-cream/75" style="--d:.2s">${s.text}</p>
       <div class="rise mb-9 flex items-baseline gap-3" style="--d:.25s"><span class="text-[12px] tracking-[.2em] text-cream/50 uppercase">Цена</span>${priceSummary}</div>
       <div class="rise flex flex-wrap gap-4" style="--d:.3s">
-        <a href="#lead" class="btn-gold group max-sm:w-full">Пригласить дизайнера ${arrow}</a>
+        <a href="#lead" class="btn-gold group max-sm:w-full">Пригласить дизайнера</a>
         <a href="#prices" class="btn-line max-sm:w-full">Смотреть цены</a>
       </div>
     </div>
@@ -498,6 +501,7 @@ const sectionPage = (s) => {
   </div>
 </section>
 ${gallery(s)}
+${['blackout-curtains', 'roman-blinds', 'linen-curtains'].includes(s.key) ? `<!-- @fabric-recommendations:${s.key} -->` : ''}
 ${s.key === 'curtain-rods' ? modelsGrid() : ''}
 ${priceTable(s.key, s.title)}
 <section class="bg-white pt-20 pb-6 sm:pt-28 sm:pb-8">
@@ -548,7 +552,7 @@ const modelPage = (m) => {
         <ul>${PRICES['curtain-rods'].map(([name, , , , price, unit]) => `<li class="flex flex-wrap items-baseline justify-between gap-x-3 border-b border-navy/5 py-2.5 text-[14px] last:border-0"><span>${name}</span><span class="font-bold whitespace-nowrap">${range(price, '₽', 'от ')} / ${unit}</span></li>`).join('')}</ul>
       </div>
       <div class="rise flex flex-wrap gap-4" style="--d:.3s">
-        <a href="#lead" class="btn-gold group max-sm:w-full" data-order="${m.title}">Заказать карниз ${arrow}</a>
+        <a href="#lead" class="btn-gold group max-sm:w-full" data-order="${m.title}">Заказать карниз</a>
         <a href="../#models" class="inline-flex items-center gap-2 px-2 py-3.5 text-[12px] font-bold tracking-[.1em] text-navy uppercase transition-colors hover:text-gold max-sm:w-full max-sm:justify-center">← Все модели</a>
       </div>
     </div>

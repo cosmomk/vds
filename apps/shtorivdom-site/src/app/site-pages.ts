@@ -1591,4 +1591,32 @@ export const sitePages: Route[] = [
         (m) => m.SoglasieNaObrabotkuPersonalnyhDannyhPage,
       ),
   },
+  {
+    path: 'fabrics',
+    pathMatch: 'full',
+    data: {
+      seo: {
+        title: 'Каталог тканей для штор: коллекция WGART | Shtorivdom',
+        description:
+          'Каталог тканей WGART: велюр, шенилл, жаккард, димаут, блэкаут, рогожка и тюль. Подскажем, какие материалы подойдут для портьер и римских штор.',
+        image: 'https://shtorivdom.ru/assets/img/fabrics/wgart/velour-dimout.jpeg',
+        jsonLd: [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://shtorivdom.ru/' },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Каталог тканей',
+                item: 'https://shtorivdom.ru/fabrics/',
+              },
+            ],
+          },
+        ],
+      } satisfies SeoData,
+    },
+    loadComponent: () => import('./pages/fabrics/page').then((m) => m.FabricsPage),
+  },
 ];

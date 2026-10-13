@@ -1,6 +1,6 @@
 /* Перенос прототипа mockups/site/ в Angular-сайт apps/shtorivdom-site.
 
-   node tools/mockups/site-build.mjs && node tools/mockups/site-to-angular.mjs
+   node tools/mockups/site-build.mjs && node tools/mockups/site-to-angular.mjs --write-angular
 
    Берёт собранные страницы mockups/site/**\/index.html (кроме emails/) и пишет:
    - src/app/pages/<страница>/page.html + page.ts — <main> и секция заявки страницы;
@@ -28,6 +28,16 @@ const SITE_URL = 'https://shtorivdom.ru';
 const SITE_SETTINGS = JSON.parse(
   readFileSync('libs/ui/site-kit/src/lib/site-settings.json', 'utf8'),
 );
+const COMPONENT_PAGES = {
+  'calc/': { selector: 'app-calc', className: 'CalcComponent' },
+  'quiz/': { selector: 'app-quiz', className: 'QuizComponent' },
+};
+
+if (!process.argv.includes('--write-angular')) {
+  throw new Error(
+    'This script rewrites production Angular pages. Pass --write-angular only when intentionally porting a mockup.',
+  );
+}
 
 // Описания страниц, у которых в прототипе их нет
 const DESCRIPTIONS = {
@@ -112,6 +122,22 @@ const absolutize = (html, pagePath) => {
   });
 };
 
+const componentizeLeadForms = (html, route) => {
+  let formIndex = 0;
+  return html.replace(
+    /<form\b(?=[^>]*\bdata-lead-form(?:\s|=|>))[^>]*>[\s\S]*?<\/form>/g,
+    (form) => {
+      const index = formIndex++;
+      if (route === 'partner/') return '<app-partner-lead-form />';
+      if (route === '' && index === 0) return '<app-designer-lead-form />';
+      if (route === '' && index === 1) return `<app-lead-form [leadType]="'phone'" />`;
+      if (/^catalog\/curtain-rods\/\d+\/$/.test(route)) return '<app-lead-form #lead="leadForm" />';
+      const kind = form.match(/\bdata-lead-form="([^"]+)"/)?.[1];
+      return kind ? `<app-lead-form [kind]="'${kind}'" />` : '<app-lead-form />';
+    },
+  );
+};
+
 // Шаблон Angular: фигурные скобки и @ в тексте — служебные
 const toTemplate = (html) =>
   html
@@ -125,8 +151,18 @@ const toTemplate = (html) =>
     .replace(/<!--[\s\S]*?-->/g, '');
 
 const pagesDir = path.join(APP, 'src/app/pages');
-rmSync(pagesDir, { recursive: true, force: true });
 mkdirSync(pagesDir, { recursive: true });
+for (const entry of readdirSync(pagesDir, { withFileTypes: true })) {
+  if (!entry.isDirectory()) continue;
+  const pageDir = path.join(pagesDir, entry.name);
+  const pageTs = path.join(pageDir, 'page.ts');
+  if (
+    existsSync(pageTs) &&
+    readFileSync(pageTs, 'utf8').includes('// Сгенерировано tools/mockups/site-to-angular.mjs')
+  ) {
+    rmSync(pageDir, { recursive: true, force: true });
+  }
+}
 
 let catalogCss = '';
 let footer = '';
@@ -153,23 +189,84 @@ for (const file of walk(SITE).sort()) {
   const main = between(src, '<main>', '</main>');
   const lead = between(src, '<section id="lead"', '</section>', src.indexOf('</main>'));
   if (!footer) footer = between(src, '<footer', '</footer>');
-  let body = absolutize(`${main}\n${lead ?? ''}`, route);
+  const pageComponent = COMPONENT_PAGES[route];
+  let body = pageComponent
+    ? `<${pageComponent.selector} />`
+    : componentizeLeadForms(absolutize(`${main}\n${lead ?? ''}`, route), route);
+  body = body.replace(/<a\b([^>]*?)\bhref="(\/[^"]*)"/g, '<a$1routerLink="$2"');
+  body = body.replace(
+    /<site-fabric-catalog class="block">[\s\S]*?<\/site-fabric-catalog>/g,
+    '<site-fabric-catalog></site-fabric-catalog>',
+  );
+  body = body.replace(
+    /<site-fabric-recommendations class="block" data-catalog-key="([^"]+)">[\s\S]*?<\/site-fabric-recommendations>/g,
+    (_, key) => `<site-fabric-recommendations catalogKey="${key}"></site-fabric-recommendations>`,
+  );
 
   const slug = pagePath ? pagePath.replace(/\//g, '-') : 'home';
   const cls = `${pascal(slug)}Page`;
   const dir = path.join(pagesDir, slug);
   mkdirSync(dir, { recursive: true });
   writeFileSync(path.join(dir, 'page.html'), toTemplate(body).trim() + '\n');
+  const componentImports = [];
+  if (body.includes('routerLink=')) componentImports.push('RouterLink');
+  if (pageComponent) componentImports.push(pageComponent.className);
+  if (body.includes('<app-lead-form')) componentImports.push('LeadFormComponent');
+  if (body.includes('<app-partner-lead-form')) componentImports.push('PartnerLeadFormComponent');
+  if (body.includes('<app-designer-lead-form')) componentImports.push('DesignerLeadFormComponent');
+  if (/\bclass="[^"]*\breveal\b/.test(body)) componentImports.push('RevealDirective');
+  if (/\bdata-count=/.test(body)) componentImports.push('CounterDirective');
+  if (/\bdata-contact-link=/.test(body)) componentImports.push('ContactLinksDirective');
+  const fabricComponents = [
+    ...(body.includes('<site-fabric-catalog>') ? ['SiteFabricCatalog'] : []),
+    ...(body.includes('<site-fabric-recommendations ') ? ['SiteFabricRecommendations'] : []),
+  ];
+  componentImports.push(...fabricComponents);
+  const componentImportLines = [
+    ...(componentImports.includes('RouterLink')
+      ? [`import { RouterLink } from '@angular/router';`]
+      : []),
+    ...(componentImports.includes('LeadFormComponent')
+      ? [`import { LeadFormComponent } from '../../forms/lead-form.component';`]
+      : []),
+    ...(componentImports.includes('PartnerLeadFormComponent')
+      ? [`import { PartnerLeadFormComponent } from '../../forms/partner-lead-form.component';`]
+      : []),
+    ...(componentImports.includes('DesignerLeadFormComponent')
+      ? [`import { DesignerLeadFormComponent } from '../../forms/designer-lead-form.component';`]
+      : []),
+    ...(pageComponent
+      ? [
+          `import { ${pageComponent.className} } from '../../components/${pageComponent.className === 'CalcComponent' ? 'calc' : 'quiz'}.component';`,
+        ]
+      : []),
+    ...(componentImports.includes('RevealDirective') ||
+    componentImports.includes('CounterDirective')
+      ? [
+          `import { ${componentImports.filter((name) => ['RevealDirective', 'CounterDirective'].includes(name)).join(', ')} } from '../../components/reveal.directive';`,
+        ]
+      : []),
+    ...(componentImports.includes('ContactLinksDirective')
+      ? [`import { ContactLinksDirective } from '../../contact-links.directive';`]
+      : []),
+    ...(fabricComponents.length
+      ? [`import { ${fabricComponents.join(', ')} } from '@shtorivdom/site-kit';`]
+      : []),
+  ];
+  const importsMetadata = componentImports.length
+    ? `  imports: [${componentImports.join(', ')}],\n`
+    : '';
   writeFileSync(
     path.join(dir, 'page.ts'),
     `import { ChangeDetectionStrategy, Component } from '@angular/core';
+${componentImportLines.join('\n')}
 
 // Сгенерировано tools/mockups/site-to-angular.mjs из mockups/site/${route}index.html
 @Component({
   selector: 'app-${slug}-page',
   templateUrl: './page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-})
+${importsMetadata}})
 export class ${cls} {}
 `,
   );

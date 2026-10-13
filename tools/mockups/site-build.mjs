@@ -35,6 +35,56 @@ const SITE_SETTINGS = JSON.parse(
 
 // Общая конфигурация цен используется мокапами и Angular-сайтом.
 const PRICE_CONFIG = JSON.parse(readFileSync('libs/ui/site-kit/src/lib/site-prices.json', 'utf8'));
+const FABRICS = JSON.parse(
+  readFileSync('libs/ui/site-kit/src/lib/site-fabrics.json', 'utf8'),
+).fabrics;
+const escapeHtml = (value) =>
+  String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+const fabricCard = (fabric, root) => `
+  <article class="reveal overflow-hidden border border-navy/10 bg-white">
+    <img src="${root}${fabric.image.replace(/^\//, '')}" alt="${fabric.name} — образец ткани" width="640" height="480" loading="lazy" class="aspect-[4/3] w-full object-cover" />
+    <div class="p-5 sm:p-6">
+      <p class="mb-2 text-[12px] font-bold tracking-[.16em] text-gold uppercase">${escapeHtml(fabric.kind)}</p>
+      <h3 class="mb-3 font-serif text-[24px] font-bold text-navy">${escapeHtml(fabric.name)}</h3>
+      <p class="mb-5 text-[14px] leading-[1.7] text-slate">${escapeHtml(fabric.summary)}</p>
+      <dl class="grid gap-2 border-t border-navy/10 pt-4 text-[14px]">
+        ${fabric.facts.map((fact) => `<div class="flex justify-between gap-4"><dt class="text-slate/70">${escapeHtml(fact.label)}</dt><dd class="text-right font-bold text-navy">${escapeHtml(fact.value)}</dd></div>`).join('')}
+      </dl>
+      ${
+        fabric.recommendations.length
+          ? `<div class="mt-5 border-t border-navy/10 pt-4"><p class="mb-3 text-[12px] font-bold tracking-[.12em] text-navy uppercase">Где использовать</p><ul class="space-y-3">${fabric.recommendations
+              .map((recommendation) => {
+                const item = CATALOG.find((section) => section.key === recommendation.catalogKey);
+                if (!item)
+                  throw new Error(`Нет раздела каталога тканей: ${recommendation.catalogKey}`);
+                return `<li><a href="${root}catalog/${item.key}/" class="font-bold text-navy underline decoration-gold/60 underline-offset-4 hover:text-gold">${escapeHtml(item.title)}</a><p class="mt-1 text-[14px] leading-[1.6] text-slate">${escapeHtml(recommendation.fit)}</p></li>`;
+              })
+              .join('')}</ul></div>`
+          : ''
+      }
+    </div>
+  </article>`;
+const renderFabricCatalog = (root) =>
+  `<site-fabric-catalog class="block">${FABRICS.map((fabric) => fabricCard(fabric, root)).join('')}</site-fabric-catalog>`;
+const renderFabricRecommendations = (key, root) => {
+  const section = CATALOG.find((item) => item.key === key);
+  if (!section) throw new Error(`Нет раздела каталога тканей: ${key}`);
+  const fabrics = FABRICS.filter((fabric) =>
+    fabric.recommendations.some((recommendation) => recommendation.catalogKey === key),
+  );
+  if (!fabrics.length) return '';
+
+  return `<site-fabric-recommendations class="block" data-catalog-key="${key}"><section class="bg-sand py-14 sm:py-20"><div class="wrap"><div class="reveal mb-8 max-w-[760px]"><p class="eyebrow">Подбор материала</p><h2 class="h2">Ткани для <span class="text-gold italic">${escapeHtml(section.title)}</span></h2><p class="mt-4 text-[14px] leading-[1.8] text-slate">Это варианты для обсуждения с дизайнером, а не гарантия совместимости с любым пошивом или механизмом. Посмотрите ткань вживую и уточните характеристики перед заказом.</p></div><div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">${fabrics
+    .map((fabric) => {
+      const recommendation = fabric.recommendations.find((item) => item.catalogKey === key);
+      return `<article class="reveal flex gap-4 border border-navy/10 bg-white p-4"><img src="${root}${fabric.image.replace(/^\//, '')}" alt="${escapeHtml(fabric.name)} — образец ткани" width="160" height="160" loading="lazy" class="size-24 shrink-0 object-cover sm:size-28" /><div><p class="mb-1 text-[12px] font-bold tracking-[.12em] text-gold uppercase">${escapeHtml(fabric.kind)}</p><h3 class="font-serif text-[20px] font-bold text-navy">${escapeHtml(fabric.name)}</h3><p class="mt-2 text-[14px] leading-[1.6] text-slate">${escapeHtml(recommendation.fit)}</p><a href="${root}fabrics/" class="mt-3 inline-block text-[14px] font-bold text-navy underline decoration-gold underline-offset-4 hover:text-gold">Все ткани</a></div></article>`;
+    })
+    .join('')}</div></div></section></site-fabric-recommendations>`;
+};
 const renderGiftIcon = (name) => {
   if (!['map-pin', 'pencil-ruler', 'sofa'].includes(name)) {
     throw new Error(`Неизвестная иконка подарка: ${name}`);
@@ -149,6 +199,14 @@ const PAGES = [
     lead: 'Вся продукция изготавливается по индивидуальным размерам из качественных материалов.',
     title: 'Каталог штор | Shtorivdom',
     extra: 'catalog',
+  },
+  {
+    path: 'fabrics/',
+    title: 'Каталог тканей для штор: коллекция WGART | Shtorivdom',
+    h1: 'Каталог тканей',
+    src: 'pages/fabrics.html',
+    description:
+      'Каталог тканей WGART: велюр, шенилл, жаккард, димаут, блэкаут, рогожка и тюль. Подскажем, какие материалы подойдут для портьер и римских штор.',
   },
   ...CATALOG.map((c) => ({
     path: `catalog/${c.key}/`,
@@ -403,6 +461,10 @@ for (const page of PAGES) {
     .replaceAll('<!-- @catalog-links -->', catalogLinks(root))
     .replaceAll('<!-- @catalog-cards -->', catalogCards(root))
     .replaceAll('<!-- @price-rows -->', priceRows(root))
+    .replaceAll('<!-- @fabric-catalog -->', renderFabricCatalog(root))
+    .replace(/<!-- @fabric-recommendations:([a-z0-9-]+) -->/g, (_, key) =>
+      renderFabricRecommendations(key, root),
+    )
     .replaceAll(
       '<!-- @calc-data -->',
       `<script type="application/json" id="calc-data">${JSON.stringify(
@@ -447,10 +509,7 @@ for (const page of PAGES) {
       .replaceAll(
         `{{tier.${key}.features}}`,
         tier.features
-          .map(
-            (feature) =>
-              `<li><span class="font-bold text-gold">✓</span>${feature}</li>`,
-          )
+          .map((feature) => `<li><span class="font-bold text-gold">✓</span>${feature}</li>`)
           .join(''),
       )
       .replaceAll(

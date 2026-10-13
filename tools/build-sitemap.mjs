@@ -3,8 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 /**
  * Собирает `sitemap.xml` и `robots.txt` сайта shtorivdom.
  *
- * Адреса берутся из маршрутов `site-pages.ts` — новые страницы
- * попадают в карту автоматически.
+ * Адреса берутся из маршрутов `site-pages.ts` и каталога тканей.
  *
  *
  * Запуск: `node tools/build-sitemap.mjs`, проверка без записи — `--check`.
@@ -13,6 +12,7 @@ const APP = 'apps/shtorivdom-site';
 const OUT_SITEMAP = `${APP}/public/sitemap.xml`;
 const OUT_ROBOTS = `${APP}/public/robots.txt`;
 const SITE_PAGES = `${APP}/src/app/site-pages.ts`;
+const SITE_FABRICS = 'libs/ui/site-kit/src/lib/site-fabrics.json';
 
 const SITE = process.env.SITE_URL ?? 'https://shtorivdom.ru';
 
@@ -27,6 +27,8 @@ const pages = [
 });
 
 pages.push({ route: '/site-map/' });
+const fabrics = JSON.parse(readFileSync(SITE_FABRICS, 'utf8')).fabrics;
+pages.push(...fabrics.map((fabric) => ({ route: `/fabrics/${fabric.key}/` })));
 
 const entries = pages.map(({ route }) => {
   return ['  <url>', `    <loc>${SITE}${route}</loc>`, '  </url>'].join('\n');

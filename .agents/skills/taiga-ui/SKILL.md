@@ -68,12 +68,20 @@ list in `apps/shtorivdom-site/project.json`.
 
 ## Icon workflow
 
+For standalone interface icons in Angular templates, prefer Taiga UI's `<tui-icon>`
+with an `@tui.*` name instead of hand-written inline SVG or a new custom icon component.
+For example: `<tui-icon icon="@tui.map-pin" />`. Import `TuiIcon` from `@taiga-ui/core`
+in the standalone component's `imports`. Keep inline SVG for logos, social-brand marks,
+and bespoke illustrations that do not have an appropriate Taiga icon. Do not migrate
+unrelated existing icons unless the task asks for it.
+
 1. Verify the `@tui.*` name and v5 API.
-2. Use the control's `iconStart` or `iconEnd` input.
+2. For icons inside textfields or other controls, use the control's `iconStart` or `iconEnd`
+   input; use `<tui-icon>` for standalone interface icons.
 3. Add a missing SVG to the explicit asset glob in `apps/shtorivdom-site/project.json`.
 4. Build and verify that the icon remains visible after hydration.
-5. Report that Taiga icons need manual server synchronization unless the owner explicitly
-   requested deployment with `--with-taiga-icons`.
+5. Report that newly added Taiga icons need manual server synchronization unless the owner
+   explicitly requested deployment with `--with-taiga-icons`.
 
 ## References
 

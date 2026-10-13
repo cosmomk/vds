@@ -1,0 +1,360 @@
+{
+  "fabrics": [
+    {
+      "key": "velour-dimout",
+      "name": "Велюр димаут",
+      "kind": "Велюр · димаут",
+      "image": "/assets/img/fabrics/wgart/velour-dimout.jpeg",
+      "gallery": [
+        "/assets/img/fabrics/wgart/velour-2.jpeg",
+        "/assets/img/fabrics/wgart/velour-3.jpeg"
+      ],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/veleur_dimout_tkan_wgart.html",
+      "summary": "Матовый бархат с коротким ворсом и широкой палитрой. Чёрная нить в основе помогает затемнять помещение.",
+      "details": [
+        "Матовая ворсовая поверхность придаёт портьерам выразительный вид и хорошо сочетается с другими тканями в многослойном оформлении окна.",
+        "В коллекции 78 цветов. Затемнение — 70–99%, высота полотна — 290 ± 3 см, вес — 420 г/м. Итоговое затемнение зависит от ширины полотен, конструкции штор и монтажа."
+      ],
+      "facts": [
+        { "label": "Палитра", "value": "78 цветов" },
+        { "label": "Затемнение", "value": "70–99%" },
+        { "label": "Высота", "value": "290 ± 3 см" },
+        { "label": "Вес", "value": "420 г/м" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "blackout-curtains",
+          "fit": "Плотные портьеры с заметным затемнением; фактический уровень зависит от модели и монтажа."
+        },
+        {
+          "catalogKey": "roman-blinds",
+          "fit": "Текстильная римская штора, если плотность и масса ткани подходят выбранному подъёмному механизму."
+        }
+      ]
+    },
+    {
+      "key": "jasper",
+      "name": "Jasper",
+      "kind": "Бархат",
+      "image": "/assets/img/fabrics/wgart/jasper.jpeg",
+      "gallery": [
+        "/assets/img/fabrics/wgart/jasper-2.jpeg",
+        "/assets/img/fabrics/wgart/jasper-3.jpeg"
+      ],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_detalno/porternye_tkani_detalno/jasper_1_tkan_wgart.html",
+      "summary": "Однотонный бархат из полиэстера. Коллекция включает варианты Jasper 1–17; высота полотна — 2,8 м.",
+      "details": [
+        "Jasper — однотонный бархат из полиэстера высотой 2,8 м. В коллекции представлены варианты Jasper 1–17; на фотографии — один из образцов.",
+        "Степень затемнения не заявлена, поэтому Jasper не относится к тканям димаут или блэкаут. Оттенки и свойства различаются в зависимости от артикула."
+      ],
+      "facts": [
+        { "label": "Тип", "value": "Бархат" },
+        { "label": "Состав", "value": "Полиэстер" },
+        { "label": "Варианты", "value": "Jasper 1–17" },
+        { "label": "Высота", "value": "280 см" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "blackout-curtains",
+          "fit": "Бархатная портьера; степень затемнения не заявлена."
+        },
+        {
+          "catalogKey": "roman-blinds",
+          "fit": "Подходит для обсуждения текстильной римской шторы; совместимость с механизмом подтверждается по весу изделия."
+        }
+      ]
+    },
+    {
+      "key": "canto",
+      "name": "Canto",
+      "kind": "Шенилл",
+      "image": "/assets/img/fabrics/wgart/canto.jpeg",
+      "gallery": ["/assets/img/fabrics/wgart/canto-3.jpeg"],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/canto_tkan_wgart.html",
+      "summary": "Однотонный шенилл из полиэстера. Высота полотна — 2,8 м.",
+      "details": [
+        "Однотонный шенилл из полиэстера высотой 2,8 м.",
+        "Коллекция представлена в нескольких оттенках, которые по-разному выглядят при дневном и искусственном освещении."
+      ],
+      "facts": [
+        { "label": "Состав", "value": "Полиэстер" },
+        { "label": "Расцветка", "value": "Однотонная" },
+        { "label": "Высота", "value": "280 см" },
+        { "label": "Тип", "value": "Шенилл" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "roman-blinds",
+          "fit": "Фактурная тканевая штора; возможность использования в римской модели зависит от веса полотна."
+        }
+      ]
+    },
+    {
+      "key": "nero",
+      "name": "Nero",
+      "kind": "Сатиновый димаут",
+      "image": "/assets/img/fabrics/wgart/nero.jpeg",
+      "gallery": ["/assets/img/fabrics/wgart/nero-2.jpeg", "/assets/img/fabrics/wgart/nero-3.jpeg"],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/nero_tkan_wgart.html",
+      "summary": "Димаут с благородной сатиновой фактурой в припылённых оттенках. Может использоваться как подкладка или как портьерная ткань.",
+      "details": [
+        "Сатиновая фактура и приглушённые оттенки делают Nero вариантом для портьер или подкладки в многослойном оформлении окна.",
+        "Палитра включает 49 цветов, высота полотна — 300 см. Димаут снижает проникновение света, но итоговое затемнение зависит также от конструкции штор и монтажа."
+      ],
+      "facts": [
+        { "label": "Палитра", "value": "49 цветов" },
+        { "label": "Высота", "value": "300 см" },
+        { "label": "Фактура", "value": "Сатиновая" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "blackout-curtains",
+          "fit": "Портьера с затемнением димаут или подкладка; сама по себе не заявлена как 100% блэкаут."
+        },
+        {
+          "catalogKey": "roman-blinds",
+          "fit": "Текстильная римская штора после проверки ткани на соответствие механизму."
+        }
+      ]
+    },
+    {
+      "key": "sombra",
+      "name": "SOMBRA",
+      "kind": "Рогожка · димаут",
+      "image": "/assets/img/fabrics/wgart/sombra.jpeg",
+      "gallery": [
+        "/assets/img/fabrics/wgart/sombra-2.jpeg",
+        "/assets/img/fabrics/wgart/sombra-3.jpeg"
+      ],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/sombra_tkan_wgart.html",
+      "summary": "Плотная рогожка с чёрной нитью в основе. Матовая фактура и приглушённая палитра хорошо сочетаются с современными интерьерами.",
+      "details": [
+        "Матовая фактура рогожки сочетается с чёрной нитью в основе, характерной для димаута.",
+        "Палитра включает 22 цвета, высота полотна — 300 см. Драпировка и степень затемнения зависят от выбранного оттенка и оформления окна."
+      ],
+      "facts": [
+        { "label": "Палитра", "value": "22 цвета" },
+        { "label": "Высота", "value": "300 см" },
+        { "label": "Фактура", "value": "Плотная, хорошо драпируется" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "blackout-curtains",
+          "fit": "Плотные портьеры с затемнением димаут; точный результат зависит от конструкции штор."
+        },
+        {
+          "catalogKey": "roman-blinds",
+          "fit": "Рассматривать только после проверки массы полотна и допустимой нагрузки механизма."
+        }
+      ]
+    },
+    {
+      "key": "huston",
+      "name": "Huston",
+      "kind": "Димаут",
+      "image": "/assets/img/fabrics/wgart/huston.jpeg",
+      "gallery": [
+        "/assets/img/fabrics/wgart/huston-2.jpeg",
+        "/assets/img/fabrics/wgart/huston-3.jpeg"
+      ],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/huston_tkan_wgart.html",
+      "summary": "Портьерная ткань димаут из хлопка и полиэстера. Коллекция включает семь вариантов Huston; высота полотна — 2,8 м.",
+      "details": [
+        "Huston — портьерная ткань димаут из хлопка и полиэстера высотой 2,8 м. Коллекция включает варианты Huston 1–7.",
+        "Димаут уменьшает количество проходящего света. Итоговый эффект зависит от размера полотен, боковых просветов и установки карниза."
+      ],
+      "facts": [
+        { "label": "Тип", "value": "Димаут" },
+        { "label": "Состав", "value": "Хлопок, полиэстер" },
+        { "label": "Варианты", "value": "Huston 1–7" },
+        { "label": "Высота", "value": "280 см" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "roman-blinds",
+          "fit": "Портьерная ткань может подойти для римской модели при допустимой для механизма массе."
+        }
+      ]
+    },
+    {
+      "key": "norden",
+      "name": "NORDEN",
+      "kind": "Блэкаут",
+      "image": "/assets/img/fabrics/wgart/norden.jpeg",
+      "gallery": [
+        "/assets/img/fabrics/wgart/norden-2.jpeg",
+        "/assets/img/fabrics/wgart/norden-3.jpeg"
+      ],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/norden_tkan_wgart.html",
+      "summary": "Ткань блэкаут по технологии «ткань + акриловая пена» с заявленной защитой от света 100%.",
+      "details": [
+        "NORDEN — блэкаут с акриловой пеной на ткани и заявленной защитой от света 100%. Это характеристика материала, а не гарантия отсутствия засветов вокруг готовой шторы.",
+        "Палитра включает 20 цветов. Максимальное затемнение зависит от ширины полотен и монтажа с минимальными боковыми просветами."
+      ],
+      "facts": [
+        { "label": "Палитра", "value": "20 цветов" },
+        { "label": "Защита от света", "value": "100%" },
+        { "label": "Технология", "value": "Акриловая пена" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "blackout-curtains",
+          "fit": "Для штор, когда важно максимально затемнить комнату; результат также зависит от боковых засветок и монтажа."
+        }
+      ]
+    },
+    {
+      "key": "narvik",
+      "name": "NARVIK",
+      "kind": "Блэкаут · рогожка",
+      "image": "/assets/img/fabrics/wgart/narvik.jpeg",
+      "gallery": [
+        "/assets/img/fabrics/wgart/narvik-2.jpeg",
+        "/assets/img/fabrics/wgart/narvik-3.jpeg"
+      ],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/narvik_tkan_wgart.html",
+      "summary": "Рогожка с мембранным покрытием TPO и заявленной защитой от солнечного света 100%.",
+      "details": [
+        "NARVIK сочетает фактуру рогожки с мембранным покрытием TPO и заявленной защитой от солнечного света 100%. Результат в помещении также зависит от конструкции и монтажа.",
+        "Палитра включает 22 оттенка. Фактура и цвет меняются в зависимости от дневного и искусственного освещения."
+      ],
+      "facts": [
+        { "label": "Палитра", "value": "22 оттенка" },
+        { "label": "Защита от света", "value": "100%" },
+        { "label": "Технология", "value": "Мембранное покрытие TPO" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "blackout-curtains",
+          "fit": "Для штор с максимальным затемнением; итог зависит от ширины полотна и отсутствия световых щелей."
+        }
+      ]
+    },
+    {
+      "key": "vassari",
+      "name": "VASSARI",
+      "kind": "Жаккард",
+      "image": "/assets/img/fabrics/wgart/vassari.jpeg",
+      "gallery": [
+        "/assets/img/fabrics/wgart/vassari-2.jpeg",
+        "/assets/img/fabrics/wgart/vassari-3.jpeg"
+      ],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/vassari_tkan_wgart.html",
+      "summary": "Портьерный жаккард со сложным переплетением нитей и богатой цветовой палитрой.",
+      "details": [
+        "VASSARI — портьерный жаккард с выразительным переплетением нитей. Рисунок и фактура создают декоративный акцент даже в однотонном интерьере.",
+        "Палитра включает 14 цветов. Плотность ткани влияет на её совместимость с подъёмными механизмами."
+      ],
+      "facts": [
+        { "label": "Палитра", "value": "14 цветов" },
+        { "label": "Тип", "value": "Портьерный жаккард" },
+        { "label": "Фактура", "value": "Сложное переплетение" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "roman-blinds",
+          "fit": "Декоративная тканевая модель после проверки плотности и совместимости с подъёмным механизмом."
+        }
+      ]
+    },
+    {
+      "key": "loft",
+      "name": "Loft",
+      "kind": "Рогожка · натуральная фактура",
+      "image": "/assets/img/fabrics/wgart/loft.jpeg",
+      "gallery": ["/assets/img/fabrics/wgart/loft-2.jpeg", "/assets/img/fabrics/wgart/loft-3.jpeg"],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/loft_tkan_wgart.html",
+      "summary": "Рогожка с фактурой конопляного полотна. Состав — 20% хлопка; ткань не является льняной или конопляной.",
+      "details": [
+        "Loft — рогожка с фактурой, напоминающей натуральное конопляное полотно. Состав — 20% хлопка; ткань не является льняной или конопляной.",
+        "Палитра включает 26 природных оттенков, высота полотна — 280 см. Декатировка помогает стабилизировать полотно."
+      ],
+      "facts": [
+        { "label": "Палитра", "value": "26 природных оттенков" },
+        { "label": "Состав", "value": "20% хлопка" },
+        { "label": "Высота", "value": "280 см" },
+        { "label": "Обработка", "value": "Декатировка для стабильности полотна" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "linen-curtains",
+          "fit": "Для текстильных штор с фактурой под натуральное полотно; состав не является льном."
+        },
+        {
+          "catalogKey": "roman-blinds",
+          "fit": "Тканевая римская штора с природной фактурой после проверки массы полотна."
+        }
+      ]
+    },
+    {
+      "key": "waves",
+      "name": "WAVES",
+      "kind": "Портьерная · фактура под шерсть",
+      "image": "/assets/img/fabrics/wgart/waves.jpeg",
+      "gallery": [
+        "/assets/img/fabrics/wgart/waves-2.jpeg",
+        "/assets/img/fabrics/wgart/waves-3.jpeg"
+      ],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/waves_tkan_wgart.html",
+      "summary": "Портьерная ткань с фактурой под шерсть — в базовых оттенках и ярких акцентных тонах.",
+      "details": [
+        "WAVES — портьерная ткань с фактурой под шерсть. Коллекция сочетает базовые и акцентные оттенки.",
+        "Палитра включает 36 цветов, высота полотна — 290 см. Для римских штор важны масса готового полотна и допустимая нагрузка механизма."
+      ],
+      "facts": [
+        { "label": "Палитра", "value": "36 цветов" },
+        { "label": "Высота", "value": "290 см" },
+        { "label": "Фактура", "value": "Под шерсть" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "roman-blinds",
+          "fit": "Для текстильной римской модели после проверки веса ткани и допустимой нагрузки механизма."
+        }
+      ]
+    },
+    {
+      "key": "soba",
+      "name": "Soba",
+      "kind": "Подкладочная ткань",
+      "image": "/assets/img/fabrics/wgart/soba.jpeg",
+      "gallery": ["/assets/img/fabrics/wgart/soba-2.jpeg", "/assets/img/fabrics/wgart/soba-3.jpeg"],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/porternye_tkani/soba_tkan_wgart.html",
+      "summary": "Подкладочная ткань для многослойного оформления окна. Характеристики и сочетания уточняются по образцу.",
+      "details": [
+        "Soba представлена как подкладочная ткань для многослойного оформления окна. Её можно рассматривать вместе с портьерной тканью, если требуется дополнительный текстильный слой.",
+        "Состав, высота полотна и степень затемнения не заявлены."
+      ],
+      "facts": [
+        { "label": "Тип", "value": "Подкладочная ткань" },
+        { "label": "Характеристики", "value": "Уточнить по образцу" }
+      ],
+      "recommendations": []
+    },
+    {
+      "key": "charm",
+      "name": "CHARM",
+      "kind": "Батист",
+      "image": "/assets/img/fabrics/wgart/charm.jpeg",
+      "gallery": ["/assets/img/fabrics/wgart/charm-3.jpeg"],
+      "sourceUrl": "https://tkani-mira.ru/catalog/tkani_dlya_shtor/tyul/charm_tkan_wgart.html",
+      "summary": "Однотонный батист из полиэстера. Высота полотна — 3,2 м.",
+      "details": [
+        "Однотонный батист из полиэстера высотой 3,2 м.",
+        "Лёгкая полупрозрачная ткань для оформления окна самостоятельно или в сочетании с портьерами. Степень прозрачности зависит от оттенка и плотности конкретного варианта."
+      ],
+      "facts": [
+        { "label": "Тип", "value": "Батист" },
+        { "label": "Состав", "value": "Полиэстер" },
+        { "label": "Расцветка", "value": "Однотонная" },
+        { "label": "Высота", "value": "320 см" }
+      ],
+      "recommendations": [
+        {
+          "catalogKey": "linen-curtains",
+          "fit": "Лёгкий слой в сочетании с портьерами; степень прозрачности зависит от конкретного варианта ткани."
+        }
+      ]
+    }
+  ]
+}

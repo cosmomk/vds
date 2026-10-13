@@ -4,8 +4,9 @@
       href="{{home}}"
       class="block w-[190px] shrink-0 text-white sm:w-[220px]"
       aria-label="Shtorivdom — на главную"
-      ><!-- @logo-3 --></a
     >
+      <!-- @logo-3 -->
+    </a>
     <nav class="hidden items-center gap-6 xl:gap-8 lg:flex" aria-label="Основное меню">
       <a href="{{home}}" class="nav-link" data-nav="">Главная</a>
       <div class="has-dropdown relative py-6">
@@ -14,7 +15,8 @@
           class="nav-link inline-flex items-center gap-1"
           data-nav="catalog/"
           aria-haspopup="true"
-          >Каталог
+        >
+          Каталог
           <svg
             width="12"
             height="12"
@@ -23,13 +25,17 @@
             stroke="currentColor"
             stroke-width="2.5"
           >
-            <path d="m6 9 6 6 6-6" /></svg
-        ></a>
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </a>
         <div class="dropdown">
-          <!-- @catalog-links --><span class="dropdown-sep" aria-hidden="true"></span
-          ><a href="{{root}}calc/">Калькулятор штор</a><a href="{{root}}quiz/">Подбор штор</a>
+          <!-- @catalog-links -->
+          <span class="dropdown-sep" aria-hidden="true"></span>
+          <a href="{{root}}calc/">Калькулятор штор</a>
+          <a href="{{root}}quiz/">Подбор штор</a>
         </div>
       </div>
+      <a href="{{root}}fabrics/" class="nav-link" data-nav="fabrics/">Ткани</a>
       <a href="{{root}}price/" class="nav-link" data-nav="price/">Цены</a>
       <a href="{{root}}services/" class="nav-link" data-nav="services/">Услуги</a>
       <a href="{{root}}about/" class="nav-link" data-nav="about/">О нас</a>
@@ -40,8 +46,9 @@
       <a
         href="{{contacts.tel}}"
         class="hidden text-[14px] font-bold whitespace-nowrap text-cream transition-colors hover:text-gold xl:block"
-        >{{contacts.phone}}</a
       >
+        {{contacts.phone}}
+      </a>
       <a href="#lead" class="btn-header">Заявка</a>
     </div>
     <div class="flex items-center gap-1 lg:hidden">
@@ -71,7 +78,9 @@
         aria-controls="mobile-menu"
         data-burger
       >
-        <span></span><span></span><span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
     </div>
   </div>
@@ -92,10 +101,13 @@
         </svg>
       </button>
       <div class="m-sub" data-sub>
-        <a href="{{root}}catalog/">Весь каталог</a
-        ><!-- @catalog-links --><span class="dropdown-sep" aria-hidden="true"></span
-        ><a href="{{root}}calc/">Калькулятор штор</a><a href="{{root}}quiz/">Подбор штор</a>
+        <a href="{{root}}catalog/">Весь каталог</a>
+        <!-- @catalog-links -->
+        <span class="dropdown-sep" aria-hidden="true"></span>
+        <a href="{{root}}calc/">Калькулятор штор</a>
+        <a href="{{root}}quiz/">Подбор штор</a>
       </div>
+      <a href="{{root}}fabrics/">Ткани</a>
       <a href="{{root}}price/">Цены</a>
       <a href="{{root}}services/">Услуги</a>
       <a href="{{root}}about/">О нас</a>

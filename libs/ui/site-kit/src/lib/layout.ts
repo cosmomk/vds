@@ -47,6 +47,15 @@ export class SiteHeader {
   readonly catalogOpen = input(false);
 
   protected readonly home = computed(() => this.root() || './');
+  protected readonly leadTarget = computed(() => {
+    const path = this.current();
+    const hasLeadForm =
+      path !== 'site-map/' &&
+      path !== '404/' &&
+      !(path.startsWith('fabrics/') && path !== 'fabrics/');
+
+    return this.root() + (hasLeadForm ? path : 'contact/');
+  });
   protected readonly catalogClosed = signal(false);
 
   protected closeMenu(): void {

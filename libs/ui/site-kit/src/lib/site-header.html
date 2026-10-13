@@ -69,7 +69,7 @@
     >
       {{ contacts().phone }}
     </a>
-    <a class="l3-btn-header btn-header" [routerLink]="[]" fragment="lead">Заявка</a>
+    <a class="l3-btn-header btn-header" fragment="lead" [routerLink]="leadTarget()">Заявка</a>
   </div>
   <div class="flex items-center gap-1 lg:hidden">
     <a
@@ -118,9 +118,9 @@
     <p class="mt-5 text-[14px] text-cream/70">{{ contacts().hours }}</p>
     <a
       siteButton
-      [routerLink]="[]"
       fragment="lead"
       class="mt-4 !flex !justify-center !border-0"
+      [routerLink]="leadTarget()"
       (click)="closeMenu()"
     >
       Оставить заявку

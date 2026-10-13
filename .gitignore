@@ -57,3 +57,5 @@ storybook-static
 /.tmp/visual-audit
 /.tmp/cache-build-check
 /.tmp
+/source
+/apps/shtorivdom-site/src/app/pages/catalog-blinds/page.html

@@ -11,6 +11,8 @@ export interface SeoData {
   description: string;
   /** Абсолютный адрес картинки для og:image */
   image: string;
+  /** URL источника, использованного для сведений на странице */
+  sourceUrl?: string;
   /** Разметка schema.org: хлебные крошки, FAQ, товар, организация */
   jsonLd: object[];
   noIndex?: boolean;
@@ -46,6 +48,8 @@ export function provideSeo() {
 
       document.head.querySelectorAll('script[data-page-ld]').forEach((s) => s.remove());
       const seo = deepest(router.routerState.snapshot.root).data['seo'] as SeoData | undefined;
+      if (seo?.sourceUrl) meta.updateTag({ name: 'source', content: seo.sourceUrl });
+      else meta.removeTag("name='source'");
       if (!seo) return;
 
       if (seo.noIndex) meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });

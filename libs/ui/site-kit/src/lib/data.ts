@@ -1,5 +1,6 @@
 import priceConfig from './site-prices.json';
 import siteSettings from './site-settings.json';
+import fabricConfig from './site-fabrics.json';
 import { InjectionToken } from '@angular/core';
 
 export const SITE_SETTINGS = siteSettings;
@@ -112,6 +113,32 @@ export const SITE_CATALOG: SiteCatalogSection[] = priceConfig.sections.map((sect
     })),
   };
 });
+
+export interface SiteFabricRecommendation {
+  catalogKey: string;
+  fit: string;
+}
+
+export interface SiteFabricFact {
+  label: string;
+  value: string;
+}
+
+export interface SiteFabric {
+  key: string;
+  name: string;
+  kind: string;
+  image: string;
+  gallery: string[];
+  sourceUrl: string;
+  summary: string;
+  details: string[];
+  facts: SiteFabricFact[];
+  recommendations: SiteFabricRecommendation[];
+}
+
+/** Каталог тканей WGART и соответствие видам штор по материалам презентации. */
+export const SITE_FABRICS = fabricConfig.fabrics as SiteFabric[];
 
 export interface SitePriceRow {
   name: string;
@@ -309,6 +336,7 @@ export interface SiteGift {
 export const SITE_TIERS = SITE_PRICE_CONFIG.tiers;
 
 export const SITE_NAV: { label: string; path: string }[] = [
+  { label: 'Ткани', path: 'fabrics/' },
   { label: 'Цены', path: 'price/' },
   { label: 'Услуги', path: 'services/' },
   { label: 'О нас', path: 'about/' },

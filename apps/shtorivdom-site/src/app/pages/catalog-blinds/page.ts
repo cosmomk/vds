@@ -8,6 +8,7 @@ import { SiteFaq } from '@shtorivdom/site-kit';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { ContactLinksDirective } from '../../contact-links.directive';
+import { TuiIcon } from '@taiga-ui/core';
 
 // Сгенерировано tools/mockups/site-to-angular.mjs из mockups/site/catalog/blinds/index.html
 @Component({
@@ -24,6 +25,7 @@ import { ContactLinksDirective } from '../../contact-links.directive';
     SiteFaq,
     SitePriceTable,
     ContactLinksDirective,
+    TuiIcon,
   ],
 })
 export class CatalogBlindsPage {

@@ -1,3 +1,4 @@
+import { SiteFabricRecommendations } from '@shtorivdom/site-kit';
 import { LeadFormComponent } from '../../forms/lead-form.component';
 import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../components/reveal.directive';
@@ -24,6 +25,7 @@ import { ContactLinksDirective } from '../../contact-links.directive';
     SiteFaq,
     SitePriceTable,
     ContactLinksDirective,
+    SiteFabricRecommendations,
   ],
 })
 export class CatalogBlackoutCurtainsPage {
